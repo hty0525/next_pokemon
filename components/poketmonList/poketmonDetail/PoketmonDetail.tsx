@@ -1,3 +1,3 @@
-export const poketmonDetail = () => {
+export default function poketmonDetail() {
   return <div></div>;
-};
+}
