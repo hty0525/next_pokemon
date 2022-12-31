@@ -5,6 +5,10 @@ import { searchedPokemonAtom, pokemonAllListAtom } from "../../atom/atom";
 
 import { useGetPokemonAllListQuery } from "../../hook/usePokemonQuery";
 
+import { pokemonKoName } from "../../static/pokemonKoName";
+
+import { pokemonNameUrlI } from "../../interface/pokemonI";
+
 export default function SearchPokemon({
   isSearchHandler,
 }: {
@@ -28,7 +32,13 @@ export default function SearchPokemon({
 
   useEffect(() => {
     if (isSuccess) {
-      setPokemonAllList(pokemonAllListData?.results);
+      const pokemonAllListKo = pokemonAllListData?.results.map(
+        (value: pokemonNameUrlI) => ({
+          ...value,
+          name: pokemonKoName[value.name],
+        }),
+      );
+      setPokemonAllList([...pokemonAllListKo]);
     }
   }, [isSuccess, setPokemonAllList, pokemonAllListData]);
 

@@ -7,19 +7,20 @@ import { pokemonKoName } from "../../../static/pokemonKoName";
 
 export default function PokemonCard({ name, url }: pokemonNameUrlI) {
   const { data: imgUrl } = useGetPokemonInfoQuery({ url, key: "imgUrl" });
-  const { data: id } = useGetPokemonInfoQuery({ url, key: "id" });
+  const checkKo = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+  const pokemonName = checkKo.test(name) ? name : pokemonKoName[name];
 
   return (
     <>
       <div className="relative h-[20em] border">
         <Image
           src={imgUrl ? imgUrl : "/image/monsterBall.png"}
-          alt={pokemonKoName[name]}
+          alt={pokemonName}
           fill
           className="p-4"
         />
       </div>
-      <p>{pokemonKoName[name]}</p>
+      <p>{pokemonName}</p>
     </>
   );
 }
