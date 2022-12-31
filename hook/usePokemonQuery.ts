@@ -1,8 +1,4 @@
-import {
-  useQuery,
-  useInfiniteQuery,
-  InfiniteData,
-} from "@tanstack/react-query";
+import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
 import { pokemonApis } from "../apis/pokemonApis";
 import { getPokemonListI } from "../interface/pokemonI";
 

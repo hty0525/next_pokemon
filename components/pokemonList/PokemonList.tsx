@@ -1,11 +1,10 @@
 import { ReactHTMLElement, useCallback, useRef } from "react";
 import { useGetPokemonListQuery } from "../../hook/usePokemonQuery";
 import { pokemonNameUrlI } from "../../interface/pokemonI";
-import PoketmonCard from "./poketmonCard/PoketmonCard";
+import PoketmonCard from "./pokemonCard/PokemonCard";
 export default function PokemonList() {
   const {
     data,
-    error,
     fetchNextPage,
     hasNextPage,
     isFetching,
@@ -38,7 +37,7 @@ export default function PokemonList() {
   );
 
   return (
-    <ul className="flex flex-wrap items-center gap-x-[5%] gap-y-5">
+    <ul className="flex flex-wrap items-center gap-x-[5%] gap-y-5 max-w-[1200px] m-auto">
       {data?.pages?.map(
         ({ results }, pageIndex: number, { length: pagesLength }) =>
           results.map(

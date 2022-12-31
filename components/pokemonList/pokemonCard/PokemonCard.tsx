@@ -3,7 +3,7 @@ import { useGetPoketImgUrl } from "../../../hook/usePokemonQuery";
 
 import Image from "next/image";
 
-export default function PoketmonCard({ name, url }: pokemonNameUrlI) {
+export default function PokemonCard({ name, url }: pokemonNameUrlI) {
   const { data } = useGetPoketImgUrl(url);
 
   return (
