@@ -1,10 +1,5 @@
-import Link from "next/link";
-import PokemonList from "../components/pokemonList/PokemonList";
+import Main from "../components/Main";
 
 export default function Home() {
-  return (
-    <>
-      <PokemonList />
-    </>
-  );
+  return <Main />;
 }

@@ -1,6 +1,6 @@
 import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
 import { pokemonApis } from "../apis/pokemonApis";
-import { getPokemonListI } from "../interface/pokemonI";
+import { getPokemonListI, getPokemonInfoI } from "../interface/pokemonI";
 
 export const useGetPokemonListQuery = () =>
   useInfiniteQuery(
@@ -13,5 +13,8 @@ export const useGetPokemonListQuery = () =>
     },
   );
 
-export const useGetPoketImgUrl = (url: string) =>
-  useQuery([url], () => pokemonApis.getPokemonImg(url));
+export const useGetPokemonAllListQuery = () =>
+  useQuery(["pokemonAllList"], () => pokemonApis.getPokemonAllList());
+
+export const useGetPokemonInfoQuery = ({ url, key }: getPokemonInfoI) =>
+  useQuery([url, key], () => pokemonApis.getPokemonInfo({ url, key }));

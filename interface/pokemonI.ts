@@ -9,3 +9,8 @@ export interface getPokemonListI {
   previous: null | string;
   result: pokemonNameUrlI[];
 }
+
+export interface getPokemonInfoI {
+  url: string;
+  key: string;
+}
