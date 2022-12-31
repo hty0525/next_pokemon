@@ -42,7 +42,7 @@ export default function PokemonList({ isSearch }: { isSearch: Boolean }) {
   );
 
   return (
-    <ul className="flex flex-wrap items-center gap-x-[5%] gap-y-5 max-w-[1200px] m-auto">
+    <ul className="grid grid-cols-3 gap-6 max-w-[1200px] m-auto">
       {isSearch
         ? pokemonList?.pages?.map(
             ({ results }, pageIndex: number, { length: pagesLength }) =>
@@ -57,7 +57,7 @@ export default function PokemonList({ isSearch }: { isSearch: Boolean }) {
                     cardIndex + 1 === cardLength;
                   return (
                     <li
-                      className="w-[30%] mouse"
+                      className="mouse"
                       key={name}
                       ref={isTarget ? target : null}
                     >
@@ -69,8 +69,8 @@ export default function PokemonList({ isSearch }: { isSearch: Boolean }) {
           )
         : searchPokemon?.map(({ name, url }: pokemonNameUrlI) => {
             return (
-              <li className="w-[30%] mouse" key={name}>
-                <PokemonCard name={name} url={url} />
+              <li className="mouse" key={name}>
+                <PokemonCard key={name} name={name} url={url} />
               </li>
             );
           })}

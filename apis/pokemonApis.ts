@@ -2,7 +2,7 @@ import { instance } from "../config/axiosInstance";
 import { getPokemonInfoI } from "../interface/pokemonI";
 
 export const pokemonApis = {
-  getPokemonList: async ({ pageParam = "pokemon/?offset=0&limit=18" }) => {
+  getPokemonList: async ({ pageParam = "pokemon/?offset=0&limit=20" }) => {
     try {
       const { data } = await instance.get(pageParam);
       return data;
@@ -14,7 +14,7 @@ export const pokemonApis = {
 
   getPokemonAllList: async () => {
     const { data } = await instance.get(
-      "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=1154",
+      "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=898",
     );
     return data;
   },
@@ -26,8 +26,8 @@ export const pokemonApis = {
         case "imgUrl":
           return data?.sprites?.other?.dream_world.front_default;
 
-        case "value2":
-          return;
+        case "id":
+          return data?.id;
 
         default:
           return data;
