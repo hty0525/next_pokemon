@@ -1,5 +1,3 @@
-import { useCallback } from "react";
-
 import { pokemonNameUrlI } from "../../interface/pokemonI";
 
 import { useGetPokemonListQuery } from "../../hook/usePokemonQuery";
@@ -7,6 +5,7 @@ import { searchedPokemonAtom } from "../../atom/atom";
 import { useAtomValue } from "jotai";
 
 import PokemonCard from "./pokemonCard/PokemonCard";
+import { useCallback } from "react";
 
 export default function PokemonList({ isSearch }: { isSearch: Boolean }) {
   const {
@@ -19,27 +18,23 @@ export default function PokemonList({ isSearch }: { isSearch: Boolean }) {
   const searchPokemon = useAtomValue(searchedPokemonAtom);
 
   const target = useCallback(
-    (node: HTMLElement | null) => {
-      if (!node) {
-        return;
-      } else {
-        const observer = new IntersectionObserver(
-          ([entry]) => {
-            const { isIntersecting, target } = entry;
-            if (isIntersecting && hasNextPage && !isFetchingNextPage) {
-              fetchNextPage();
-              observer.unobserve(target);
-            }
-          },
-          {
-            root: null,
-            threshold: 0,
-          },
-        );
-        observer.observe(node);
-      }
+    (node: HTMLElement) => {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          const { isIntersecting, target } = entry;
+          if (isIntersecting) {
+            fetchNextPage();
+            observer.unobserve(target);
+          }
+        },
+        {
+          root: null,
+          threshold: 0,
+        },
+      );
+      observer.observe(node);
     },
-    [hasNextPage, fetchNextPage, isFetchingNextPage],
+    [fetchNextPage],
   );
 
   return (

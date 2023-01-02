@@ -17,7 +17,7 @@ export default memo(function PokemonCard({
   const pokemonName = checkKo.test(name) ? name : pokemonKoName[name];
 
   const targetCard = (node: HTMLElement | null) => {
-    target && target(node);
+    !!node && target && target(node);
   };
 
   return (
