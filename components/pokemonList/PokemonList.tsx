@@ -13,6 +13,7 @@ export default function PokemonList({ isSearch }: { isSearch: Boolean }) {
     data: pokemonList,
     fetchNextPage,
     hasNextPage,
+    isFetchingNextPage,
   } = useGetPokemonListQuery();
 
   const searchPokemon = useAtomValue(searchedPokemonAtom);
@@ -25,7 +26,7 @@ export default function PokemonList({ isSearch }: { isSearch: Boolean }) {
         const observer = new IntersectionObserver(
           ([entry]) => {
             const { isIntersecting, target } = entry;
-            if (isIntersecting && hasNextPage) {
+            if (isIntersecting && hasNextPage && !isFetchingNextPage) {
               fetchNextPage();
               observer.unobserve(target);
             }
@@ -38,7 +39,7 @@ export default function PokemonList({ isSearch }: { isSearch: Boolean }) {
         observer.observe(node);
       }
     },
-    [hasNextPage, fetchNextPage],
+    [hasNextPage, fetchNextPage, isFetchingNextPage],
   );
 
   return (
@@ -56,26 +57,20 @@ export default function PokemonList({ isSearch }: { isSearch: Boolean }) {
                     pageIndex + 1 === pagesLength &&
                     cardIndex + 1 === cardLength;
                   return (
-                    <li
-                      className="mouse"
+                    <PokemonCard
                       key={name}
-                      ref={isTarget ? target : null}
-                    >
-                      <PokemonCard name={name} url={url} />
-                    </li>
+                      name={name}
+                      url={url}
+                      isTarget={isTarget}
+                      target={target}
+                    />
                   );
                 },
               ),
           )
         : searchPokemon?.map(({ name, url }: pokemonNameUrlI) => {
-            return (
-              <li className="mouse" key={name}>
-                <PokemonCard key={name} name={name} url={url} />
-              </li>
-            );
+            return <PokemonCard key={name} name={name} url={url} />;
           })}
     </ul>
   );
 }
-
-export const asdf = 1;

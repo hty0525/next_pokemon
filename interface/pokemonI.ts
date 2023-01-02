@@ -1,6 +1,8 @@
 export interface pokemonNameUrlI {
   name: string;
   url: string;
+  isTarget?: Boolean;
+  target?(node: HTMLElement | null): void | undefined;
 }
 
 export interface getPokemonListI {

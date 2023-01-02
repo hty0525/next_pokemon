@@ -5,7 +5,8 @@ import { getPokemonListI, getPokemonInfoI } from "../interface/pokemonI";
 export const useGetPokemonListQuery = () =>
   useInfiniteQuery(
     ["pokemonList"],
-    async ({ pageParam }) => await pokemonApis.getPokemonList({ pageParam }),
+    ({ pageParam = "pokemon/?offset=0&limit=20" }) =>
+      pokemonApis.getPokemonList({ pageParam }),
     {
       getNextPageParam: ({ next }): getPokemonListI => {
         return next;
