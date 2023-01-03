@@ -3,6 +3,7 @@ export interface pokemonNameUrlI {
   url: string;
   isTarget?: Boolean;
   target?(node: HTMLElement | null): void | undefined;
+  isHasNextPage?: Boolean;
 }
 
 export interface getPokemonListI {

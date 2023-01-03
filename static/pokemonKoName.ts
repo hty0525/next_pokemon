@@ -897,7 +897,6 @@ export const pokemonKoName: Record<string, string> = {
   glastrier: "블리자포스",
   spectrier: "레이스포스",
   calyrex: "버드렉스",
-
   이상해씨: "bulbasaur",
   이상해풀: "ivysaur",
   이상해꽃: "venusaur",

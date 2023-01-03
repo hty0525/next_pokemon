@@ -11,13 +11,13 @@ export default memo(function PokemonCard({
   url,
   isTarget,
   target,
+  isHasNextPage,
 }: pokemonNameUrlI) {
   const { data: imgUrl } = useGetPokemonInfoQuery({ url, key: "imgUrl" });
   const checkKo = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
   const pokemonName = checkKo.test(name) ? name : pokemonKoName[name];
-
   const targetCard = (node: HTMLElement | null) => {
-    !!node && target && target(node);
+    !!node && target && isHasNextPage && target(node);
   };
 
   return (

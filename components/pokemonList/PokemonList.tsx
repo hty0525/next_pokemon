@@ -12,7 +12,6 @@ export default function PokemonList({ isSearch }: { isSearch: Boolean }) {
     data: pokemonList,
     fetchNextPage,
     hasNextPage,
-    isFetchingNextPage,
   } = useGetPokemonListQuery();
 
   const searchPokemon = useAtomValue(searchedPokemonAtom);
@@ -56,6 +55,7 @@ export default function PokemonList({ isSearch }: { isSearch: Boolean }) {
                       key={name}
                       name={name}
                       url={url}
+                      isHasNextPage={hasNextPage}
                       isTarget={isTarget}
                       target={target}
                     />

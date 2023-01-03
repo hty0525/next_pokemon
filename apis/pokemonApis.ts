@@ -2,9 +2,15 @@ import { instance } from "../config/axiosInstance";
 import { getPokemonInfoI } from "../interface/pokemonI";
 
 export const pokemonApis = {
-  getPokemonList: async ({ pageParam }: { pageParam: string }) => {
+  getPokemonList: async ({ pageParam }: { pageParam: number }) => {
     try {
-      const { data } = await instance.get(pageParam);
+      let limit = 20;
+      if (pageParam >= 240) {
+        limit = 11;
+      }
+      const { data } = await instance.get(
+        `pokemon/?offset=${pageParam}&limit=${limit}`,
+      );
       return data;
     } catch (error) {
       console.log(error);
@@ -13,9 +19,7 @@ export const pokemonApis = {
   },
 
   getPokemonAllList: async () => {
-    const { data } = await instance.get(
-      "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=898",
-    );
+    const { data } = await instance.get("pokemon/?offset=0&limit=251");
     return data;
   },
 
@@ -24,8 +28,8 @@ export const pokemonApis = {
       const { data } = await instance.get(url);
       switch (key) {
         case "imgUrl":
-          return data?.sprites?.other?.dream_world.front_default;
-
+          return data?.sprites?.front_default;
+        //data?.sprites?.other?.dream_world.front_default;
         case "id":
           return data?.id;
 
