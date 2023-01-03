@@ -14,6 +14,7 @@ const client = new QueryClient({
     },
   },
 });
+
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={client}>
@@ -22,7 +23,9 @@ export default function App({ Component, pageProps }: AppProps) {
       ) : null}
       <Provider>
         <Head>
-          <title>포켓몬!</title>
+          <title>포켓몬스터</title>
+          <meta name="description" content="next.js연습을 위한 포켓몬 도감" />
+          <link rel="icon" href="/favico.ico" />
         </Head>
         <Component {...pageProps} />
       </Provider>

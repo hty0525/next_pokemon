@@ -28,8 +28,9 @@ export default memo(function PokemonCard({
           className="p-4"
           alt={pokemonName}
           fill
-          priority
+          // priority
           sizes="auto"
+          loading="lazy"
         />
       </div>
       <p>{pokemonName}</p>

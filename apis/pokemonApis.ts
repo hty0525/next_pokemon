@@ -13,7 +13,6 @@ export const pokemonApis = {
       );
       return data;
     } catch (error) {
-      console.log(error);
       return error;
     }
   },
@@ -28,8 +27,7 @@ export const pokemonApis = {
       const { data } = await instance.get(url);
       switch (key) {
         case "imgUrl":
-          return data?.sprites?.front_default;
-        //data?.sprites?.other?.dream_world.front_default;
+          return data?.sprites?.other?.dream_world.front_default;
         case "id":
           return data?.id;
 
