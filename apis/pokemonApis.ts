@@ -22,18 +22,18 @@ export const pokemonApis = {
     return data;
   },
 
-  getPokemonInfo: async ({ url, key }: getPokemonInfoI) => {
+  getPokemonImgId: async ({ url }: { url: string }) => {
     try {
       const { data } = await instance.get(url);
-      switch (key) {
-        case "imgUrl":
-          return data?.sprites?.other?.dream_world.front_default;
-        case "id":
-          return data?.id;
-
-        default:
-          return data;
-      }
+      return data;
+    } catch (error) {
+      return error;
+    }
+  },
+  getPokemonInfo: async () => {
+    try {
+      const { data } = await instance.get("/");
+      return data;
     } catch (error) {
       return error;
     }

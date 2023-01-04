@@ -1,3 +1,7 @@
-export default function PokemonDetail() {
-  return <div></div>;
+export default function PokemonDetail({
+  id,
+}: {
+  id: string | string[] | undefined;
+}) {
+  return <div>{id}</div>;
 }

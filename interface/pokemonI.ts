@@ -10,7 +10,7 @@ export interface getPokemonListI {
   count: string;
   next: string;
   previous: null | string;
-  result: pokemonNameUrlI[];
+  results: pokemonNameUrlI[];
 }
 
 export interface getPokemonInfoI {

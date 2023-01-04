@@ -21,5 +21,16 @@ export const useGetPokemonListQuery = () =>
 export const useGetPokemonAllListQuery = () =>
   useQuery(["pokemonAllList"], () => pokemonApis.getPokemonAllList());
 
-export const useGetPokemonInfoQuery = ({ url, key }: getPokemonInfoI) =>
-  useQuery([url, key], () => pokemonApis.getPokemonInfo({ url, key }));
+export const useGetPokemonImgIdQuery = ({ url, key }: getPokemonInfoI) =>
+  useQuery([url, key], () => pokemonApis.getPokemonImgId({ url }), {
+    select: (data) => {
+      switch (key) {
+        case "imgUrl":
+          return data?.sprites?.other?.["official-artwork"].front_default;
+        case "id":
+          return data?.id;
+        default:
+          return data;
+      }
+    },
+  });
