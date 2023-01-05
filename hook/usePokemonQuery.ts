@@ -1,13 +1,13 @@
 import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
 import { pokemonApis } from "../apis/pokemonApis";
-import { getPokemonListI, getPokemonInfoI } from "../interface/pokemonI";
+import { IGetPokemonList, IGetPokemonInfo } from "../interface/Ipokemon";
 
 export const useGetPokemonListQuery = () =>
   useInfiniteQuery(
     ["pokemonList"],
     ({ pageParam = 0 }) => pokemonApis.getPokemonList({ pageParam }),
     {
-      getNextPageParam: ({ next }: getPokemonListI) => {
+      getNextPageParam: ({ next }: IGetPokemonList) => {
         const offset = next.split("?")[1].split("&")[0];
         let nextOffSet = Number(offset.substring(offset.indexOf("=") + 1));
         if (nextOffSet >= 251) {
@@ -21,16 +21,27 @@ export const useGetPokemonListQuery = () =>
 export const useGetPokemonAllListQuery = () =>
   useQuery(["pokemonAllList"], () => pokemonApis.getPokemonAllList());
 
-export const useGetPokemonImgIdQuery = ({ url, key }: getPokemonInfoI) =>
-  useQuery([url, key], () => pokemonApis.getPokemonImgId({ url }), {
-    select: (data) => {
-      switch (key) {
-        case "imgUrl":
-          return data?.sprites?.other?.["official-artwork"].front_default;
-        case "id":
-          return data?.id;
-        default:
-          return data;
-      }
+export const useGetPokemonInfoQuery = ({ url, key }: IGetPokemonInfo) =>
+  useQuery(
+    ["useGetPokemonInfoQuery", url, key],
+    () => pokemonApis.getPokemonInfo({ url }),
+    {
+      select: (data) => {
+        switch (key) {
+          case "imgUrl":
+            return data?.sprites?.other?.["official-artwork"].front_default;
+          case "type":
+            return data;
+          default:
+            data?.types;
+            return data;
+        }
+      },
     },
+  );
+
+export const useGetPokemonDescQuery = (id: string | string[] | undefined) => {
+  return useQuery(["useGetPokemonDescQuery", id], () => {
+    return pokemonApis.getPokemonDesc(id);
   });
+};

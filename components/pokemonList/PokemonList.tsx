@@ -1,4 +1,4 @@
-import { pokemonNameUrlI } from "../../interface/pokemonI";
+import { pokemonCard } from "../../interface/Ipokemon";
 
 import { useGetPokemonListQuery } from "../../hook/usePokemonQuery";
 import { searchedPokemonAtom } from "../../atom/atom";
@@ -35,36 +35,39 @@ export default function PokemonList({ isSearch }: { isSearch: Boolean }) {
     },
     [fetchNextPage],
   );
-
+  let id = 0;
   return (
     <ul className="grid grid-cols-3 gap-6 max-w-[1200px] m-auto">
       {isSearch
         ? pokemonList?.pages?.map(
-            ({ results }, pageIndex: number, { length: pagesLength }) =>
-              results.map(
+            ({ results }, pageIndex: number, { length: pagesLength }) => {
+              return results.map(
                 (
-                  { name, url }: pokemonNameUrlI,
+                  { name, url }: pokemonCard,
                   cardIndex: number,
                   { length: cardLength }: { length: number },
                 ) => {
                   const isTarget =
                     pageIndex + 1 === pagesLength &&
                     cardIndex + 1 === cardLength;
+                  id++;
                   return (
                     <PokemonCard
                       key={name}
                       name={name}
                       url={url}
+                      id={id}
                       isHasNextPage={hasNextPage}
                       isTarget={isTarget}
                       target={target}
                     />
                   );
                 },
-              ),
+              );
+            },
           )
-        : searchPokemon?.map(({ name, url }: pokemonNameUrlI) => {
-            return <PokemonCard key={name} name={name} url={url} />;
+        : searchPokemon?.map(({ name, url }: pokemonCard, id: number) => {
+            return <PokemonCard key={name} name={name} url={url} id={id + 1} />;
           })}
     </ul>
   );

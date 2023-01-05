@@ -5,6 +5,5 @@ export default function PokemonDetailView() {
   const {
     query: { id },
   } = useRouter();
-  const a = useRouter();
   return <PokemonDetail id={id} />;
 }

@@ -1,19 +1,20 @@
-export interface pokemonNameUrlI {
+export interface IPokemonCard {
   name: string;
   url: string;
+  id: number;
   isTarget?: Boolean;
   target?(node: HTMLElement | null): void | undefined;
   isHasNextPage?: Boolean;
 }
 
-export interface getPokemonListI {
+export interface IGetPokemonList {
   count: string;
   next: string;
   previous: null | string;
-  results: pokemonNameUrlI[];
+  results: IPokemonCard[];
 }
 
-export interface getPokemonInfoI {
+export interface IGetPokemonInfo {
   url: string;
   key: string;
 }

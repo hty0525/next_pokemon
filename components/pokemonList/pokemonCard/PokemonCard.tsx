@@ -1,8 +1,8 @@
 import { memo } from "react";
 import Image from "next/image";
 
-import { pokemonNameUrlI } from "../../../interface/pokemonI";
-import { useGetPokemonImgIdQuery } from "../../../hook/usePokemonQuery";
+import { pokemonCard } from "../../../interface/Ipokemon";
+import { useGetPokemonInfoQuery } from "../../../hook/usePokemonQuery";
 
 import { pokemonKoName } from "../../../static/pokemonKoName";
 import Link from "next/link";
@@ -13,9 +13,9 @@ export default memo(function PokemonCard({
   isTarget,
   target,
   isHasNextPage,
-}: pokemonNameUrlI) {
-  const { data: imgUrl } = useGetPokemonImgIdQuery({ url, key: "imgUrl" });
-  const { data: id } = useGetPokemonImgIdQuery({ url, key: "id" });
+  id,
+}: pokemonCard) {
+  const { data: imgUrl } = useGetPokemonInfoQuery({ url, key: "imgUrl" });
 
   const checkKo = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
   const pokemonName = checkKo.test(name) ? name : pokemonKoName[name];

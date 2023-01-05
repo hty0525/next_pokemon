@@ -7,7 +7,7 @@ import { useGetPokemonAllListQuery } from "../../hook/usePokemonQuery";
 
 import { pokemonKoName } from "../../static/pokemonKoName";
 
-import { pokemonNameUrlI } from "../../interface/pokemonI";
+import { pokemonNameUrlI } from "../../interface/Ipokemon";
 
 export default function SearchPokemon({
   isSearchHandler,

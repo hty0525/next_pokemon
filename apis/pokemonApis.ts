@@ -1,5 +1,5 @@
 import { instance } from "../config/axiosInstance";
-import { getPokemonInfoI } from "../interface/pokemonI";
+import { getPokemonInfoI } from "../interface/Ipokemon";
 
 export const pokemonApis = {
   getPokemonList: async ({ pageParam }: { pageParam: number }) => {
@@ -22,7 +22,7 @@ export const pokemonApis = {
     return data;
   },
 
-  getPokemonImgId: async ({ url }: { url: string }) => {
+  getPokemonInfo: async ({ url }: { url: string }) => {
     try {
       const { data } = await instance.get(url);
       return data;
@@ -30,9 +30,9 @@ export const pokemonApis = {
       return error;
     }
   },
-  getPokemonInfo: async () => {
+  getPokemonDesc: async (id: string | string[] | undefined) => {
     try {
-      const { data } = await instance.get("/");
+      const { data } = await instance.get(`pokemon-species/${id}`);
       return data;
     } catch (error) {
       return error;
