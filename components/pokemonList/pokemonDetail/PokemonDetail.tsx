@@ -1,8 +1,9 @@
 import { useGetPokemonDescQuery } from "../../../hook/usePokemonQuery";
+import { pokemonKoName } from "../../../static/pokemonKoName";
 
 export default function PokemonDetail({ id }: { id: string | string[] }) {
-  const { data } = useGetPokemonDescQuery(id);
-  console.log(id);
-  console.log(data);
-  return <div>{id}</div>;
+  const { data } = useGetPokemonDescQuery({ id });
+  const pokemonName = pokemonKoName[data?.name];
+
+  return <div>{pokemonName}</div>;
 }

@@ -56,7 +56,7 @@ export default function PokemonList({ isSearch }: { isSearch: Boolean }) {
                       key={name}
                       name={name}
                       url={url}
-                      id={id}
+                      id={String(id)}
                       isHasNextPage={hasNextPage}
                       isTarget={isTarget}
                       target={target}
@@ -67,7 +67,9 @@ export default function PokemonList({ isSearch }: { isSearch: Boolean }) {
             },
           )
         : searchPokemon?.map(({ name, url }: IPokemonCard, id: number) => {
-            return <PokemonCard key={name} name={name} url={url} id={id + 1} />;
+            return (
+              <PokemonCard key={name} name={name} url={url} id={String(id)} />
+            );
           })}
     </ul>
   );

@@ -31,17 +31,37 @@ export const useGetPokemonInfoQuery = ({ url, key }: IGetPokemonInfo) =>
           case "imgUrl":
             return data?.sprites?.other?.["official-artwork"].front_default;
           case "type":
-            return data;
+            return data?.types.map(
+              ({ type: { name } }: { type: { name: string } }) => name,
+            );
           default:
-            data?.types;
             return data;
         }
       },
     },
   );
 
-export const useGetPokemonDescQuery = (id: string | string[]) => {
-  return useQuery(["useGetPokemonDescQuery", id], () => {
-    return pokemonApis.getPokemonDesc(id);
-  });
+export const useGetPokemonDescQuery = ({
+  id,
+  key,
+}: {
+  id: string | string[];
+  key?: string;
+}) => {
+  return useQuery(
+    ["useGetPokemonDescQuery", id],
+    () => {
+      return pokemonApis.getPokemonDesc(id);
+    },
+    {
+      select: (data) => {
+        switch (key) {
+          case "color":
+            return data?.color.name;
+          default:
+            return data;
+        }
+      },
+    },
+  );
 };

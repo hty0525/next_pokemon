@@ -7,7 +7,7 @@ import { useGetPokemonAllListQuery } from "../../hook/usePokemonQuery";
 
 import { pokemonKoName } from "../../static/pokemonKoName";
 
-import { pokemonNameUrlI } from "../../interface/pokemon";
+import { IPokemonCard } from "../../interface/pokemon";
 
 export default function SearchPokemon({
   isSearchHandler,
@@ -33,7 +33,7 @@ export default function SearchPokemon({
   useEffect(() => {
     if (isSuccess) {
       const pokemonAllListKo = pokemonAllListData?.results.map(
-        (value: pokemonNameUrlI) => ({
+        (value: IPokemonCard) => ({
           ...value,
           name: pokemonKoName[value.name],
         }),

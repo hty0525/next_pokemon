@@ -2,9 +2,12 @@ import { memo } from "react";
 import Image from "next/image";
 
 import { IPokemonCard } from "../../../interface/pokemon";
+
 import { useGetPokemonInfoQuery } from "../../../hook/usePokemonQuery";
 
 import { pokemonKoName } from "../../../static/pokemonKoName";
+import { pokemonTypeColor } from "../../../static/\bpokemonTypeColor";
+
 import Link from "next/link";
 
 export default memo(function PokemonCard({
@@ -16,14 +19,21 @@ export default memo(function PokemonCard({
   id,
 }: IPokemonCard) {
   const { data: imgUrl } = useGetPokemonInfoQuery({ url, key: "imgUrl" });
+  const { data: type } = useGetPokemonInfoQuery({ url, key: "type" });
+  const typeColor = type && pokemonTypeColor[type[0]];
   const checkKo = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
   const pokemonName = checkKo.test(name) ? name : pokemonKoName[name];
+
   const targetCard = (node: HTMLElement | null) => {
     !!node && target && isHasNextPage && target(node);
   };
   return (
     <li ref={isTarget ? targetCard : null}>
-      <Link href={`/pokemonDetail/${id}`}>
+      <Link
+        href={{
+          pathname: `/pokemonDetail/${id}`,
+        }}
+      >
         <div className="relative h-[20em] border">
           <Image
             src={imgUrl ? imgUrl : "/image/monsterBall.png"}
@@ -34,7 +44,11 @@ export default memo(function PokemonCard({
             loading="lazy"
           />
         </div>
-        <p>{pokemonName}</p>
+
+        <p style={{ background: typeColor, color: "white" }}>
+          {id}
+          {pokemonName}
+        </p>
       </Link>
     </li>
   );

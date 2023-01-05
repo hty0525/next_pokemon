@@ -1,7 +1,7 @@
 export interface IPokemonCard {
   name: string;
   url: string;
-  id: number;
+  id: string;
   isTarget?: Boolean;
   target?(node: HTMLElement | null): void | undefined;
   isHasNextPage?: Boolean;
