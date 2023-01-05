@@ -1,4 +1,4 @@
-import { pokemonCard } from "../../interface/Ipokemon";
+import { IPokemonCard } from "../../interface/pokemon";
 
 import { useGetPokemonListQuery } from "../../hook/usePokemonQuery";
 import { searchedPokemonAtom } from "../../atom/atom";
@@ -43,7 +43,7 @@ export default function PokemonList({ isSearch }: { isSearch: Boolean }) {
             ({ results }, pageIndex: number, { length: pagesLength }) => {
               return results.map(
                 (
-                  { name, url }: pokemonCard,
+                  { name, url }: IPokemonCard,
                   cardIndex: number,
                   { length: cardLength }: { length: number },
                 ) => {
@@ -66,7 +66,7 @@ export default function PokemonList({ isSearch }: { isSearch: Boolean }) {
               );
             },
           )
-        : searchPokemon?.map(({ name, url }: pokemonCard, id: number) => {
+        : searchPokemon?.map(({ name, url }: IPokemonCard, id: number) => {
             return <PokemonCard key={name} name={name} url={url} id={id + 1} />;
           })}
     </ul>

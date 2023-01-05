@@ -1,6 +1,6 @@
 import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
 import { pokemonApis } from "../apis/pokemonApis";
-import { IGetPokemonList, IGetPokemonInfo } from "../interface/Ipokemon";
+import { IGetPokemonList, IGetPokemonInfo } from "../interface/pokemon";
 
 export const useGetPokemonListQuery = () =>
   useInfiniteQuery(
@@ -40,7 +40,7 @@ export const useGetPokemonInfoQuery = ({ url, key }: IGetPokemonInfo) =>
     },
   );
 
-export const useGetPokemonDescQuery = (id: string | string[] | undefined) => {
+export const useGetPokemonDescQuery = (id: string | string[]) => {
   return useQuery(["useGetPokemonDescQuery", id], () => {
     return pokemonApis.getPokemonDesc(id);
   });

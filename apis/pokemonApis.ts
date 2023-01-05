@@ -1,5 +1,4 @@
 import { instance } from "../config/axiosInstance";
-import { getPokemonInfoI } from "../interface/Ipokemon";
 
 export const pokemonApis = {
   getPokemonList: async ({ pageParam }: { pageParam: number }) => {
@@ -30,7 +29,7 @@ export const pokemonApis = {
       return error;
     }
   },
-  getPokemonDesc: async (id: string | string[] | undefined) => {
+  getPokemonDesc: async (id: string | string[]) => {
     try {
       const { data } = await instance.get(`pokemon-species/${id}`);
       return data;
