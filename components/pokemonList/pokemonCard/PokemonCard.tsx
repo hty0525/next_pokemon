@@ -12,14 +12,13 @@ import Link from "next/link";
 
 export default memo(function PokemonCard({
   name,
-  url,
   isTarget,
   target,
   isHasNextPage,
   id,
 }: IPokemonCard) {
-  const { data: imgUrl } = useGetPokemonInfoQuery({ url, key: "imgUrl" });
-  const { data: type } = useGetPokemonInfoQuery({ url, key: "type" });
+  const { data: imgUrl } = useGetPokemonInfoQuery({ id, key: "imgUrl" });
+  const { data: type } = useGetPokemonInfoQuery({ id, key: "type" });
   const typeColor = type && pokemonTypeColor[type[0]];
   const checkKo = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
   const pokemonName = checkKo.test(name) ? name : pokemonKoName[name];
@@ -34,7 +33,7 @@ export default memo(function PokemonCard({
           pathname: `/pokemonDetail/${id}`,
         }}
       >
-        <div className="relative h-[20em] border">
+        <div className="relative w-full pb-[100%] border">
           <Image
             src={imgUrl ? imgUrl : "/image/monsterBall.png"}
             className="p-4"

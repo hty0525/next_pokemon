@@ -1,6 +1,5 @@
 export interface IPokemonCard {
   name: string;
-  url: string;
   id: string;
   isTarget?: Boolean;
   target?(node: HTMLElement | null): void | undefined;
@@ -11,10 +10,15 @@ export interface IGetPokemonList {
   count: string;
   next: string;
   previous: null | string;
-  results: IPokemonCard[];
+  results: IGetPokemonData[];
 }
 
 export interface IGetPokemonInfo {
-  url: string;
+  id: string | string[] | undefined;
   key: string;
+}
+
+export interface IGetPokemonData {
+  name: string;
+  url: string;
 }

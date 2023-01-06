@@ -21,14 +21,15 @@ export const pokemonApis = {
     return data;
   },
 
-  getPokemonInfo: async ({ url }: { url: string }) => {
+  getPokemonInfo: async ({ id }: { id: string | string[] | undefined }) => {
     try {
-      const { data } = await instance.get(url);
+      const { data } = await instance.get(`pokemon/${id}`);
       return data;
     } catch (error) {
       return error;
     }
   },
+
   getPokemonDesc: async (id: string | string[]) => {
     try {
       const { data } = await instance.get(`pokemon-species/${id}`);

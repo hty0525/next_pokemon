@@ -1,9 +1,12 @@
 import type { AppProps } from "next/app";
+import Head from "next/head";
+
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { Provider } from "jotai";
 
-import Head from "next/head";
+import Layout from "../components/Layout";
+
 import "../styles/globals.css";
 
 const client = new QueryClient({
@@ -27,7 +30,9 @@ export default function App({ Component, pageProps }: AppProps) {
           <meta name="description" content="next.js연습을 위한 포켓몬 도감" />
           <link rel="icon" href="/favico.ico" />
         </Head>
-        <Component {...pageProps} />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       </Provider>
     </QueryClientProvider>
   );

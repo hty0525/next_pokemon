@@ -21,19 +21,21 @@ export const useGetPokemonListQuery = () =>
 export const useGetPokemonAllListQuery = () =>
   useQuery(["pokemonAllList"], () => pokemonApis.getPokemonAllList());
 
-export const useGetPokemonInfoQuery = ({ url, key }: IGetPokemonInfo) =>
+export const useGetPokemonInfoQuery = ({ id, key }: IGetPokemonInfo) =>
   useQuery(
-    ["useGetPokemonInfoQuery", url, key],
-    () => pokemonApis.getPokemonInfo({ url }),
+    ["useGetPokemonInfoQuery", id, key],
+    () => pokemonApis.getPokemonInfo({ id }),
     {
       select: (data) => {
         switch (key) {
           case "imgUrl":
             return data?.sprites?.other?.["official-artwork"].front_default;
+
           case "type":
             return data?.types.map(
               ({ type: { name } }: { type: { name: string } }) => name,
             );
+
           default:
             return data;
         }
@@ -56,8 +58,31 @@ export const useGetPokemonDescQuery = ({
     {
       select: (data) => {
         switch (key) {
-          case "color":
-            return data?.color.name;
+          case "name":
+            return data?.name;
+
+          case "class":
+            const pokemonClass = data?.genera.filter(
+              ({ language: { name } }: { language: { name: string } }) =>
+                name === "ko",
+            )[0].genus;
+            return pokemonClass;
+
+          case "desc":
+            const checkDupl = new Set();
+            const pokemonDesc = data?.flavor_text_entries
+              .filter(
+                ({ language: { name } }: { language: { name: string } }) =>
+                  name === "ko",
+              )
+              .map(({ flavor_text }: { flavor_text: string }) => {
+                if (checkDupl.has(flavor_text)) return;
+                checkDupl.add(flavor_text);
+                return flavor_text;
+              })
+              .filter((v: string) => v);
+            return pokemonDesc;
+
           default:
             return data;
         }
