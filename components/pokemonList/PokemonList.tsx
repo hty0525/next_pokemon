@@ -35,7 +35,7 @@ export default function PokemonList({ isSearch }: { isSearch: Boolean }) {
     },
     [fetchNextPage],
   );
-  let id = 0;
+
   return (
     <ul className="grid grid-cols-3 gap-6 max-w-[1200px] m-auto">
       {isSearch
@@ -50,7 +50,9 @@ export default function PokemonList({ isSearch }: { isSearch: Boolean }) {
                   const isTarget =
                     pageIndex + 1 === pagesLength &&
                     cardIndex + 1 === cardLength;
-                  id++;
+
+                  const id = url.split("/")[url.split("/").length - 2];
+
                   return (
                     <PokemonCard
                       key={name}
@@ -66,7 +68,9 @@ export default function PokemonList({ isSearch }: { isSearch: Boolean }) {
               );
             },
           )
-        : searchPokemon?.map(({ name, url }: IPokemonCard, id: number) => {
+        : searchPokemon?.map(({ name, url }: IPokemonCard) => {
+            const id = url.split("/")[url.split("/").length - 2];
+
             return (
               <PokemonCard key={name} name={name} url={url} id={String(id)} />
             );
