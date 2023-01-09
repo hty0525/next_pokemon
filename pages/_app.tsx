@@ -1,20 +1,39 @@
-import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import Head from "next/head";
 
-const client = new QueryClient();
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { Provider } from "jotai";
+
+import Layout from "../components/Layout";
+
+import "../styles/globals.css";
+
+const client = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: Infinity,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
+
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={client}>
       {process.env.NODE_ENV !== "production" ? (
         <ReactQueryDevtools initialIsOpen={false} />
       ) : null}
-      <Head>
-        <title>포켓몬!</title>
-      </Head>
-      <Component {...pageProps} />
+      <Provider>
+        <Head>
+          <title>포켓몬스터</title>
+          <meta name="description" content="next.js연습을 위한 포켓몬 도감" />
+          <link rel="icon" href="/favico.ico" />
+        </Head>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </Provider>
     </QueryClientProvider>
   );
 }

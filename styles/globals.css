@@ -7,3 +7,11 @@
   margin: 0;
   box-sizing: border-box;
 }
+
+body {
+  cursor: url(/image/dancingPokemon.cur), auto;
+}
+
+ul li.mouse {
+  cursor: url(/image/poketmon.webp), pointer;
+}

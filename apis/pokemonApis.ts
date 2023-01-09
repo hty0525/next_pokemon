@@ -1,27 +1,39 @@
 import { instance } from "../config/axiosInstance";
 
 export const pokemonApis = {
-  getPokemonList: async ({ pageParam = "pokemon/?offset=0&limit=18" }) => {
+  getPokemonList: async ({ pageParam }: { pageParam: number }) => {
     try {
-      const { data } = await instance.get(pageParam);
+      let limit = 20;
+      if (pageParam >= 240) {
+        limit = 11;
+      }
+      const { data } = await instance.get(
+        `pokemon/?offset=${pageParam}&limit=${limit}`,
+      );
       return data;
     } catch (error) {
-      console.log(error);
       return error;
     }
   },
-  getPokemonImg: async (url = "") => {
+
+  getPokemonAllList: async () => {
+    const { data } = await instance.get("pokemon/?offset=0&limit=251");
+    return data;
+  },
+
+  getPokemonInfo: async ({ id }: { id: string | string[] | undefined }) => {
     try {
-      const {
-        data: {
-          sprites: {
-            other: {
-              home: { front_default },
-            },
-          },
-        },
-      } = await instance.get(url);
-      return front_default;
+      const { data } = await instance.get(`pokemon/${id}`);
+      return data;
+    } catch (error) {
+      return error;
+    }
+  },
+
+  getPokemonDesc: async (id: string | string[]) => {
+    try {
+      const { data } = await instance.get(`pokemon-species/${id}`);
+      return data;
     } catch (error) {
       return error;
     }
