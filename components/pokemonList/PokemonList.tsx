@@ -7,7 +7,8 @@ import { useAtomValue } from "jotai";
 import PokemonCard from "./pokemonCard/PokemonCard";
 import { useCallback } from "react";
 
-export default function PokemonList({ isSearch }: { isSearch: Boolean }) {
+export default function PokemonList() {
+  // { isSearch }: { isSearch: Boolean }
   const {
     data: pokemonList,
     fetchNextPage,
@@ -35,7 +36,7 @@ export default function PokemonList({ isSearch }: { isSearch: Boolean }) {
     },
     [fetchNextPage],
   );
-
+  const isSearch = true;
   return (
     <ul className="grid grid-cols-3 gap-6 w-full m-auto">
       {isSearch

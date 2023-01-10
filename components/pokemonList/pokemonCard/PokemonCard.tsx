@@ -6,7 +6,7 @@ import { IPokemonCard } from "../../../interface/pokemon";
 import { useGetPokemonInfoQuery } from "../../../hook/usePokemonQuery";
 
 import { pokemonKoName } from "../../../static/pokemonKoName";
-import { pokemonTypeColor } from "../../../static/\bpokemonTypeColor";
+import { pokemonTypeColor } from "../../../static/pokemonTypeColor";
 
 import Link from "next/link";
 

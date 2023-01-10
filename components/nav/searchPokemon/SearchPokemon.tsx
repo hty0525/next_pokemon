@@ -1,28 +1,29 @@
 import React, { useEffect, useState } from "react";
 
 import { useSetAtom, useAtom } from "jotai";
-import { searchedPokemonAtom, pokemonAllListAtom } from "../../atom/atom";
+import { searchedPokemonAtom, pokemonAllListAtom } from "../../../atom/atom";
 
-import { useGetPokemonAllListQuery } from "../../hook/usePokemonQuery";
+import { useGetPokemonAllListQuery } from "../../../hook/usePokemonQuery";
 
-import { pokemonKoName } from "../../static/pokemonKoName";
+import { pokemonKoName } from "../../../static/pokemonKoName";
 
-import { IPokemonCard } from "../../interface/pokemon";
+import { IPokemonCard } from "../../../interface/pokemon";
 
-export default function SearchPokemon({
-  isSearchHandler,
-}: {
-  isSearchHandler: React.Dispatch<React.SetStateAction<Boolean>>;
-}) {
+export default function SearchPokemon() {
+  //   {
+  //   isSearchHandler,
+  // }: {
+  //   isSearchHandler: React.Dispatch<React.SetStateAction<Boolean>>;
+  // }
   const [pokemonName, setPokemonName] = useState<string>("");
 
   const setSearchedPokemon = useSetAtom(searchedPokemonAtom);
 
   const { data: pokemonAllListData, isSuccess } = useGetPokemonAllListQuery();
 
-  useEffect(() => {
-    pokemonName === "" ? isSearchHandler(true) : isSearchHandler(false);
-  }, [pokemonName, isSearchHandler]);
+  // useEffect(() => {
+  //   pokemonName === "" ? isSearchHandler(true) : isSearchHandler(false);
+  // }, [pokemonName, isSearchHandler]);
 
   const searchPokemonHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -43,7 +44,7 @@ export default function SearchPokemon({
   }, [isSuccess, setPokemonAllList, pokemonAllListData]);
 
   return (
-    <form className="m-auto sticky" onSubmit={searchPokemonHandler}>
+    <form className="m-auto w-full" onSubmit={searchPokemonHandler}>
       <input
         value={pokemonName}
         onChange={({ target: { value } }) => {
