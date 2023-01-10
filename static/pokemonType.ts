@@ -1,4 +1,4 @@
-export const pokemonType: Record<string, string> = {
+const pokemonType: Record<string, string> = {
   normal: "노말",
 
   fighting: "격투",
@@ -39,3 +39,5 @@ export const pokemonType: Record<string, string> = {
 
   shadow: "다크",
 };
+
+export default pokemonType;

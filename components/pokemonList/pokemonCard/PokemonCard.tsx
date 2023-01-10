@@ -5,8 +5,8 @@ import { IPokemonCard } from "../../../interface/pokemon";
 
 import { useGetPokemonInfoQuery } from "../../../hook/usePokemonQuery";
 
-import { pokemonKoName } from "../../../static/pokemonKoName";
-import { pokemonTypeColor } from "../../../static/pokemonTypeColor";
+import pokemonKoName from "../../../static/pokemonKoName";
+import pokemonTypeColor from "../../../static/pokemonTypeColor";
 
 import Link from "next/link";
 
@@ -18,14 +18,17 @@ export default memo(function PokemonCard({
   id,
 }: IPokemonCard) {
   const { data: imgUrl } = useGetPokemonInfoQuery({ id, key: "imgUrl" });
-  const { data: type } = useGetPokemonInfoQuery({ id, key: "type" });
-  const typeColor = type && pokemonTypeColor[type[0]];
+  const { data: type, isLoading: typeIsLoading } = useGetPokemonInfoQuery({
+    id,
+    key: "type",
+  });
   const checkKo = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
   const pokemonName = checkKo.test(name) ? name : pokemonKoName[name];
 
   const targetCard = (node: HTMLElement | null) => {
     !!node && target && isHasNextPage && target(node);
   };
+
   return (
     <li ref={isTarget ? targetCard : null}>
       <Link
@@ -35,16 +38,16 @@ export default memo(function PokemonCard({
       >
         <div className="relative w-full pb-[100%] border">
           <Image
-            src={imgUrl ? imgUrl : "/image/monsterBall.png"}
             className="p-4"
+            src={imgUrl ? imgUrl : "/image/monsterBall.png"}
             alt={pokemonName}
             fill
+            priority
             sizes="auto"
-            loading="lazy"
           />
         </div>
 
-        <p style={{ background: typeColor, color: "white" }}>
+        <p className={`${pokemonTypeColor[type?.[0] ?? "flying"]} text-white`}>
           {id}
           {pokemonName}
         </p>

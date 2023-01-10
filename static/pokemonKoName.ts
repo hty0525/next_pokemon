@@ -1,4 +1,4 @@
-export const pokemonKoName: Record<string, string> = {
+const pokemonKoName: Record<string, string> = {
   bulbasaur: "이상해씨",
   ivysaur: "이상해풀",
   venusaur: "이상해꽃",
@@ -1796,3 +1796,5 @@ export const pokemonKoName: Record<string, string> = {
   레이스포스: "spectrier",
   버드렉스: "calyrex",
 };
+
+export default pokemonKoName;

@@ -5,7 +5,7 @@ import { searchedPokemonAtom, pokemonAllListAtom } from "../../../atom/atom";
 
 import { useGetPokemonAllListQuery } from "../../../hook/usePokemonQuery";
 
-import { pokemonKoName } from "../../../static/pokemonKoName";
+import pokemonKoName from "../../../static/pokemonKoName";
 
 import { IPokemonCard } from "../../../interface/pokemon";
 
