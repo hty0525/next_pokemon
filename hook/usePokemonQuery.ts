@@ -10,7 +10,7 @@ export const useGetPokemonListQuery = () =>
       getNextPageParam: ({ next }: IGetPokemonList) => {
         const offset = next.split("?")[1].split("&")[0];
         let nextOffSet = Number(offset.substring(offset.indexOf("=") + 1));
-        if (nextOffSet >= 251) {
+        if (nextOffSet >= 898) {
           return undefined;
         }
         return nextOffSet;

@@ -17,7 +17,7 @@ export const pokemonApis = {
   },
 
   getPokemonAllList: async () => {
-    const { data } = await instance.get("pokemon/?offset=0&limit=251");
+    const { data } = await instance.get("pokemon/?offset=0&limit=898");
     return data;
   },
 
