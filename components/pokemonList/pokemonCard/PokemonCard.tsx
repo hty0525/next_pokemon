@@ -39,11 +39,11 @@ export default memo(function PokemonCard({
         <div className="relative w-full pb-[100%] border">
           <Image
             className="p-4"
+            fill
             src={imgUrl ? imgUrl : "/image/monsterBall.png"}
             alt={pokemonName}
-            fill
-            priority
             sizes="auto"
+            priority
           />
         </div>
 
