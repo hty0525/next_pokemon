@@ -54,8 +54,9 @@ export default function SearchPokemon() {
           );
           setSearchedPokemon(copy);
         }}
-        className="border block w-1/2 p-2 m-auto"
+        className="border-b-4 border-gray-500 block w-1/2 py-1 px-2 m-auto"
         type="text"
+        placeholder="찾고싶은 포켓몬을 입력해 주세요!"
       />
     </form>
   );

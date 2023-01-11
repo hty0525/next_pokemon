@@ -2,11 +2,11 @@ import Nav from "./nav/Nav";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <>
-      <header className="bg-white h-24">
+    <main className="relative">
+      <header className="bg-white sticky top-0 z-50">
         <Nav />
       </header>
-      <main className="max-w-[1200px] m-auto relative">{children}</main>
-    </>
+      <section className="max-w-[1200px] m-auto relative">{children}</section>
+    </main>
   );
 }
