@@ -4,7 +4,7 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head />
-      <body>
+      <body style={{ background: "url(/image/bg_pattern2.jpg)" }}>
         <Main />
         <NextScript />
       </body>

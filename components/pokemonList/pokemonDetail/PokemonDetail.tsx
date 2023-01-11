@@ -36,8 +36,8 @@ export default function PokemonDetail({ id }: { id: string | string[] }) {
   return (
     <>
       {!isImgLoading && !isNameLoading && !isTypeLoading && !isClassLoading && (
-        <section className="w-full m-auto px-[5%]">
-          <ul className="flex gap-10">
+        <section className="w-full m-auto p-[5%] bg-white rounded-3xl border-4 border-gray-800">
+          <ul className="flex gap-10 items-center">
             <li className="w-[55%]">
               <div className="relative w-full pb-[100%]">
                 <Image
@@ -50,7 +50,7 @@ export default function PokemonDetail({ id }: { id: string | string[] }) {
               </div>
             </li>
             <li>
-              <div>
+              <div className="mb-10">
                 <h3 className="text-4xl mb-5 text font-extrabold">
                   <p className="text-[0.55em] text-gray-400 leading-5 font-bold">
                     No.{" "}
@@ -60,19 +60,18 @@ export default function PokemonDetail({ id }: { id: string | string[] }) {
                 </h3>
               </div>
               <div>
-                {pokeDesc?.map((desc: string) => (
-                  <div key={desc} className="mb-5 text-l">
+                <div className="mb-5 text-l flex">
+                  <div className="mr-3">
                     <Image
-                      className="inline-block"
                       key={type}
                       src={`/image/smallMonsterBall.png`}
                       alt={pokemonName}
-                      width="25"
-                      height="25"
+                      width="30"
+                      height="30"
                     />
-                    {desc}
                   </div>
-                ))}
+                  <p className="text-xl leading-6">{pokeDesc?.[0]}</p>
+                </div>
               </div>
               <div className="flex text-l mb-5">
                 <div>
