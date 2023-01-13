@@ -5,7 +5,7 @@ import SearchPokemon from "./searchPokemon/SearchPokemon";
 
 export default function Nav() {
   return (
-    <nav className="flex h-24 items-center justify-center w-[1200px] m-auto relative">
+    <nav className="flex items-center justify-center w-[1200px] m-auto relative h-full">
       <h1 className="absolute top-0 left-0">
         <Link href="/">
           <Image

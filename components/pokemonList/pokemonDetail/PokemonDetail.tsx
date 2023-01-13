@@ -7,7 +7,6 @@ import {
 
 import pokemonKoName from "../../../static/pokemonKoName";
 import pokemonType from "../../../static/pokemonType";
-import pokemonTypeColor from "../../../static/pokemonTypeColor";
 
 export default function PokemonDetail({ id }: { id: string | string[] }) {
   const { data: name, isLoading: isNameLoading } = useGetPokemonDescQuery({
@@ -30,16 +29,15 @@ export default function PokemonDetail({ id }: { id: string | string[] }) {
   );
 
   const { data: pokeDesc } = useGetPokemonDescQuery({ id, key: "desc" });
-  console.log(pokeDesc);
 
   const pokemonName = pokemonKoName[name];
 
   return (
-    <>
+    <article className="h-[calc(100vh-6rem)] flex items-center ">
       {!isImgLoading && !isNameLoading && !isTypeLoading && !isClassLoading && (
-        <section className="w-full m-auto p-[5%] bg-white rounded-3xl border-4 border-gray-800">
-          <ul className="flex gap-10 items-center">
-            <li className="w-[55%]">
+        <section className="w-full flex items-center m-auto h-3/4 bg-white rounded-3xl border-4 border-gray-800">
+          <ul className="flex gap-14 items-center w-full px-[5%]">
+            <li className="w-[45%]">
               <div className="relative w-full pb-[100%]">
                 <Image
                   src={imgUrl}
@@ -50,36 +48,23 @@ export default function PokemonDetail({ id }: { id: string | string[] }) {
                 ></Image>
               </div>
             </li>
-            <li>
-              <div className="mb-10">
-                <h3 className="text-4xl mb-5 text font-extrabold">
-                  <p className="text-[0.55em] text-gray-400 leading-5 font-bold">
-                    No.{" "}
-                    {id.length < 2 ? `00${id}` : id.length < 3 ? `0${id}` : id}
-                  </p>
-                  {pokemonName}
-                </h3>
+            <li className="flex-1">
+              <h3 className="text-5xl mb-10 text font-extrabold">
+                <p className="text-[0.4em] text-gray-400 leading-5 font-bold">
+                  No.{" "}
+                  {id.length < 2 ? `00${id}` : id.length < 3 ? `0${id}` : id}
+                </p>
+                {pokemonName}
+              </h3>
+              <div className="mb-10 text-l">
+                <p className="text-2xl ">{pokeDesc}</p>
               </div>
-              <div>
-                <div className="mb-5 text-l flex">
-                  <div className="mr-3">
-                    <Image
-                      key={type}
-                      src={`/image/smallMonsterBall.png`}
-                      alt={pokemonName}
-                      width="30"
-                      height="30"
-                    />
-                  </div>
-                  <p className="text-xl leading-6">{pokeDesc}</p>
-                </div>
-              </div>
-              <div className="flex text-l mb-5">
-                <div>
-                  <p className="mb-3 text-gray-400">타입</p>
-                  <div className="flex mr-10">
+              <div className="flex text-xl">
+                <div className="text-center mr-10">
+                  <p className="mb-4 text-gray-400">타입</p>
+                  <div className="flex gap-3">
                     {type?.map((type: string) => (
-                      <div key={type} className="">
+                      <div key={type}>
                         <Image
                           key={type}
                           src={`/image/pokemonTypesImg/${type}.png`}
@@ -87,13 +72,13 @@ export default function PokemonDetail({ id }: { id: string | string[] }) {
                           width="50"
                           height="50"
                         />
-                        <p className="text-center">{pokemonType[type]}</p>
+                        <p className="text-center mt-2">{pokemonType[type]}</p>
                       </div>
                     ))}
                   </div>
                 </div>
                 <div>
-                  <p className="mb-3 text-gray-400">분류</p>
+                  <p className="mb-4 text-gray-400">분류</p>
                   <p>{pokeClass}</p>
                 </div>
               </div>
@@ -101,6 +86,6 @@ export default function PokemonDetail({ id }: { id: string | string[] }) {
           </ul>
         </section>
       )}
-    </>
+    </article>
   );
 }
