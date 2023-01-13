@@ -6,7 +6,7 @@ import { IPokemonCard } from "../../../interface/pokemon";
 import { useGetPokemonInfoQuery } from "../../../hook/usePokemonQuery";
 
 import pokemonKoName from "../../../static/pokemonKoName";
-import pokemonTypeColor from "../../../static/pokemonTypeColor";
+import pokemonType from "../../../static/pokemonType";
 
 import Link from "next/link";
 
@@ -47,15 +47,27 @@ export default memo(function PokemonCard({
             priority
           />
         </div>
-        <div>
-          <h3 className="text-3xl mb-10 text font-extrabold">
+        <div className="flex justify-between items-end">
+          <h3 className="text-3xl text font-extrabold">
             <p className="text-[0.4em] text-gray-400 leading-5 font-bold">
               No. {id.length < 2 ? `00${id}` : id.length < 3 ? `0${id}` : id}
             </p>
             {pokemonName}
           </h3>
+          <div className="flex">
+            {type?.map((type: string) => (
+              <div key={type}>
+                <Image
+                  key={type}
+                  src={`/image/pokemonTypesImg/${type}.png`}
+                  alt={pokemonName}
+                  width="40"
+                  height="40"
+                />
+              </div>
+            ))}
+          </div>
         </div>
-        <div></div>
       </Link>
     </li>
   );
