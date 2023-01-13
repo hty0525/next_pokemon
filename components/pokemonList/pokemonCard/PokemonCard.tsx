@@ -34,10 +34,10 @@ export default memo(function PokemonCard({
       <Link
         className="border-4 border-gray-600 rounded-2xl p-6 bg-white block"
         href={{
-          pathname: `/pokemonDetail/${id}`,
+          pathname: `/${id}`,
         }}
       >
-        <div className="relative w-full pb-[100%] border-4 border-gray-400">
+        <div className="relative w-full pb-[100%] border-4 border-gray-400 mb-3">
           <Image
             className="p-4"
             fill
