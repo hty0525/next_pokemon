@@ -30,6 +30,7 @@ export default function PokemonDetail({ id }: { id: string | string[] }) {
   );
 
   const { data: pokeDesc } = useGetPokemonDescQuery({ id, key: "desc" });
+  console.log(pokeDesc);
 
   const pokemonName = pokemonKoName[name];
 
@@ -70,7 +71,7 @@ export default function PokemonDetail({ id }: { id: string | string[] }) {
                       height="30"
                     />
                   </div>
-                  <p className="text-xl leading-6">{pokeDesc?.[0]}</p>
+                  <p className="text-xl leading-6">{pokeDesc}</p>
                 </div>
               </div>
               <div className="flex text-l mb-5">

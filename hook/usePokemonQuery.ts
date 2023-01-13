@@ -51,7 +51,7 @@ export const useGetPokemonDescQuery = ({
   key?: string;
 }) => {
   return useQuery(
-    ["useGetPokemonDescQuery", id],
+    ["useGetPokemonDescQuery", id, key],
     () => {
       return pokemonApis.getPokemonDesc(id);
     },
@@ -69,19 +69,16 @@ export const useGetPokemonDescQuery = ({
             return pokemonClass;
 
           case "desc":
-            const checkDupl = new Set();
-            const pokemonDesc = data?.flavor_text_entries
-              .filter(
-                ({ language: { name } }: { language: { name: string } }) =>
-                  name === "ko",
-              )
-              .map(({ flavor_text }: { flavor_text: string }) => {
-                if (checkDupl.has(flavor_text)) return;
-                checkDupl.add(flavor_text);
-                return flavor_text;
-              })
-              .filter((v: string) => v);
-            return pokemonDesc;
+            const pokemonDesc = data?.flavor_text_entries.filter(
+              ({
+                language: { name: language },
+                version: { name: version },
+              }: {
+                language: { name: string };
+                version: { name: string };
+              }) => language === "ko" && version === "shield",
+            );
+            return pokemonDesc[0]?.flavor_text;
 
           default:
             return data;
