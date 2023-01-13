@@ -72,11 +72,9 @@ export const useGetPokemonDescQuery = ({
             const pokemonDesc = data?.flavor_text_entries.filter(
               ({
                 language: { name: language },
-                version: { name: version },
               }: {
                 language: { name: string };
-                version: { name: string };
-              }) => language === "ko" && version === "shield",
+              }) => language === "ko",
             );
             return pokemonDesc[0]?.flavor_text;
 

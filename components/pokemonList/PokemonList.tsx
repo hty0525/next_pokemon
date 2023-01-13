@@ -38,7 +38,7 @@ export default function PokemonList() {
   );
   const isSearch = true;
   return (
-    <ul className="grid grid-cols-3 gap-6 w-full m-auto">
+    <ul className="grid grid-cols-4 gap-10 w-full m-auto pt-10">
       {isSearch
         ? pokemonList?.pages?.map(
             ({ results }, pageIndex: number, { length: pagesLength }) => {

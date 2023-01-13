@@ -32,11 +32,12 @@ export default memo(function PokemonCard({
   return (
     <li ref={isTarget ? targetCard : null}>
       <Link
+        className="border-4 border-gray-600 rounded-2xl p-6 bg-white block"
         href={{
           pathname: `/pokemonDetail/${id}`,
         }}
       >
-        <div className="relative w-full pb-[100%] border">
+        <div className="relative w-full pb-[100%] border-4 border-gray-400">
           <Image
             className="p-4"
             fill
@@ -46,11 +47,15 @@ export default memo(function PokemonCard({
             priority
           />
         </div>
-
-        <p className={`${pokemonTypeColor[type?.[0] ?? "flying"]} text-white`}>
-          {id}
-          {pokemonName}
-        </p>
+        <div>
+          <h3 className="text-3xl mb-10 text font-extrabold">
+            <p className="text-[0.4em] text-gray-400 leading-5 font-bold">
+              No. {id.length < 2 ? `00${id}` : id.length < 3 ? `0${id}` : id}
+            </p>
+            {pokemonName}
+          </h3>
+        </div>
+        <div></div>
       </Link>
     </li>
   );
