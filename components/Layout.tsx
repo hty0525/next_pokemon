@@ -1,5 +1,5 @@
 import Nav from "./nav/Nav";
-import Slide from "./mainSlide";
+import Slide from "./mainSlide/SlideWrap";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
