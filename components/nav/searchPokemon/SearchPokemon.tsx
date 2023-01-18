@@ -10,20 +10,11 @@ import pokemonKoName from "../../../static/pokemonKoName";
 import { IPokemonCard } from "../../../interface/pokemon";
 
 export default function SearchPokemon() {
-  //   {
-  //   isSearchHandler,
-  // }: {
-  //   isSearchHandler: React.Dispatch<React.SetStateAction<Boolean>>;
-  // }
   const [pokemonName, setPokemonName] = useState<string>("");
 
   const setSearchedPokemon = useSetAtom(searchedPokemonAtom);
 
   const { data: pokemonAllListData, isSuccess } = useGetPokemonAllListQuery();
-
-  // useEffect(() => {
-  //   pokemonName === "" ? isSearchHandler(true) : isSearchHandler(false);
-  // }, [pokemonName, isSearchHandler]);
 
   const searchPokemonHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -41,7 +32,7 @@ export default function SearchPokemon() {
       );
       setPokemonAllList([...pokemonAllListKo]);
     }
-  }, [isSuccess, setPokemonAllList, pokemonAllListData]);
+  }, [isSuccess, pokemonAllListData?.results, setPokemonAllList]);
 
   return (
     <form className="m-auto w-full" onSubmit={searchPokemonHandler}>

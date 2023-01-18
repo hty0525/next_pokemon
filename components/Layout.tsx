@@ -1,10 +1,10 @@
 import Nav from "./nav/Nav";
-import Slide from "./mainSlide/SlideWrap";
+import MainSlide from "./mainSlide/MainSlide";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <main className="relative">
-      <Slide />
+      <MainSlide />
       <header className="bg-white sticky top-0 z-50  h-24">
         <Nav />
       </header>
