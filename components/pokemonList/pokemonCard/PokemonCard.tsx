@@ -6,7 +6,6 @@ import { IPokemonCard } from "../../../interface/pokemon";
 import { useGetPokemonInfoQuery } from "../../../hook/usePokemonQuery";
 
 import pokemonKoName from "../../../static/pokemonKoName";
-import pokemonType from "../../../static/pokemonType";
 
 import Link from "next/link";
 
@@ -30,7 +29,7 @@ export default memo(function PokemonCard({
   };
 
   return (
-    <li ref={isTarget ? targetCard : null}>
+    <li ref={isTarget ? targetCard : null} className="w-full shrink-1">
       <Link
         className="border-4 border-gray-600 rounded-2xl p-6 bg-white block"
         href={{

@@ -1,15 +1,38 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useAtomValue, useAtom } from "jotai";
-import { todayPokemonAtom } from "../../atom/atom";
+
+import { useAtomValue } from "jotai";
+import { pokemonAllListAtom } from "../../atom/atom";
+
+import { IGetPokemonData } from "../../interface/pokemon";
+
+import PokemonCard from "../pokemonList/pokemonCard/PokemonCard";
 
 export default function MainSlide() {
+  const [todayPokemon, setTodayPokemon] = useState<Array<IGetPokemonData>>([]);
   const [curIdx, setCurIdx] = useState(0);
 
   const delay = 3000;
   const ary = new Array(10).fill(10);
 
-  const todayPokemon = useAtomValue(todayPokemonAtom);
-  console.log(todayPokemon);
+  const pokemonAllList = useAtomValue(pokemonAllListAtom);
+
+  useEffect(() => {
+    if (pokemonAllList.length <= 1) {
+      return;
+    }
+    const pokemonList = [];
+    const duplicateCheck = new Set();
+
+    while (pokemonList.length <= 9) {
+      const randomNum = Math.floor(Math.random() * pokemonAllList.length + 1);
+      if (duplicateCheck.has(randomNum)) {
+        continue;
+      }
+      duplicateCheck.add(randomNum);
+      pokemonList.push(pokemonAllList[randomNum]);
+    }
+    setTodayPokemon(pokemonList);
+  }, [pokemonAllList]);
 
   const moveNextSlide = useCallback(() => {
     if (curIdx >= ary.length - 1) {
@@ -36,7 +59,7 @@ export default function MainSlide() {
   };
 
   useEffect(() => {
-    startInterval();
+    // startInterval();
     return () => {
       if (intervalRef.current !== null) {
         window.clearInterval(intervalRef.current);
@@ -45,7 +68,6 @@ export default function MainSlide() {
   }, []);
 
   useEffect(() => {
-    console.log(curIdx);
     if (curIdx >= ary.length) setCurIdx(0);
   }, [curIdx, ary.length]);
 
@@ -67,14 +89,10 @@ export default function MainSlide() {
             transition: `all ${delay - 1000}ms`,
           }}
         >
-          {ary.map((_, idx) => (
-            <li
-              key={idx}
-              className="border-4 border-black w-1/3 h-full shrink-0"
-            >
-              item{idx}
-            </li>
-          ))}
+          {todayPokemon?.map(({ name, url }) => {
+            const id = url.split("/")[url.split("/").length - 2];
+            return <PokemonCard key={name} name={name} id={String(id)} />;
+          })}
         </ul>
       </article>
     </section>
