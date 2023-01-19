@@ -14,11 +14,14 @@ export default function PokemonList() {
   } = useGetPokemonListQuery();
 
   const target = useCallback(
-    (node: HTMLElement) => {
+    (node: HTMLElement | null) => {
+      if (!node) {
+        return;
+      }
       const observer = new IntersectionObserver(
         ([entry]) => {
           const { isIntersecting, target } = entry;
-          if (isIntersecting) {
+          if (isIntersecting && hasNextPage) {
             fetchNextPage();
             observer.unobserve(target);
           }
@@ -30,7 +33,7 @@ export default function PokemonList() {
       );
       observer.observe(node);
     },
-    [fetchNextPage],
+    [fetchNextPage, hasNextPage],
   );
 
   return (
@@ -49,14 +52,9 @@ export default function PokemonList() {
               const id = url.split("/")[url.split("/").length - 2];
 
               return (
-                <PokemonCard
-                  key={name}
-                  name={name}
-                  id={String(id)}
-                  isHasNextPage={hasNextPage}
-                  isTarget={isTarget}
-                  target={target}
-                />
+                <li key={name} ref={isTarget ? target : null}>
+                  <PokemonCard name={name} id={String(id)} />
+                </li>
               );
             },
           );

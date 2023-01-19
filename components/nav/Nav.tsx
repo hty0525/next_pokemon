@@ -13,6 +13,7 @@ export default function Nav() {
             alt="logo"
             width={200}
             height={100}
+            style={{ height: "auto", width: "auto" }}
           />
         </Link>
       </h1>

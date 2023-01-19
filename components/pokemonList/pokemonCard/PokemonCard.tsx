@@ -9,27 +9,17 @@ import pokemonKoName from "../../../static/pokemonKoName";
 
 import Link from "next/link";
 
-export default memo(function PokemonCard({
-  name,
-  isTarget,
-  target,
-  isHasNextPage,
-  id,
-}: IPokemonCard) {
+export default memo(function PokemonCard({ name, id }: IPokemonCard) {
   const { data: imgUrl } = useGetPokemonInfoQuery({ id, key: "imgUrl" });
-  const { data: type, isLoading: typeIsLoading } = useGetPokemonInfoQuery({
+  const { data: type } = useGetPokemonInfoQuery({
     id,
     key: "type",
   });
   const checkKo = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
   const pokemonName = checkKo.test(name) ? name : pokemonKoName[name];
 
-  const targetCard = (node: HTMLElement | null) => {
-    !!node && target && isHasNextPage && target(node);
-  };
-
   return (
-    <li ref={isTarget ? targetCard : null} className="w-full shrink-1">
+    <>
       <Link
         className="border-4 border-gray-600 rounded-2xl p-6 bg-white block"
         href={{
@@ -40,10 +30,13 @@ export default memo(function PokemonCard({
           <Image
             className="p-4"
             fill
-            src={imgUrl ? imgUrl : "/image/monsterBall.png"}
+            src={imgUrl ?? "/image/monsterBall.png"}
             alt={pokemonName}
-            sizes="auto"
+            sizes="100vw,100vh"
             priority
+            style={{
+              objectFit: "contain",
+            }}
           />
         </div>
         <div className="flex justify-between items-end">
@@ -60,14 +53,15 @@ export default memo(function PokemonCard({
                   key={type}
                   src={`/image/pokemonTypesImg/${type}.png`}
                   alt={pokemonName}
-                  width="40"
-                  height="40"
+                  width={40}
+                  height={40}
+                  style={{ width: "auto", height: "auto" }}
                 />
               </div>
             ))}
           </div>
         </div>
       </Link>
-    </li>
+    </>
   );
 });

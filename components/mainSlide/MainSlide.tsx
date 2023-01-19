@@ -44,26 +44,26 @@ export default function MainSlide() {
 
   const intervalRef = useRef<number | null>(null);
 
-  const startInterval = () => {
-    if (intervalRef.current !== null) return;
-    intervalRef.current = window.setInterval(() => {
-      setCurIdx((prevIdx) => prevIdx + 1);
-    }, delay);
-  };
+  // const startInterval = () => {
+  //   if (intervalRef.current !== null) return;
+  //   intervalRef.current = window.setInterval(() => {
+  //     setCurIdx((prevIdx) => prevIdx + 1);
+  //   }, delay);
+  // };
 
-  const stopInterval = () => {
-    if (intervalRef.current) {
-      window.clearInterval(intervalRef.current);
-      intervalRef.current = null;
-    }
-  };
+  // const stopInterval = () => {
+  //   if (intervalRef.current) {
+  //     window.clearInterval(intervalRef.current);
+  //     intervalRef.current = null;
+  //   }
+  // };
 
   useEffect(() => {
     // startInterval();
     return () => {
-      if (intervalRef.current !== null) {
-        window.clearInterval(intervalRef.current);
-      }
+      // if (intervalRef.current !== null) {
+      //   // window.clearInterval(intervalRef.current);
+      // }
     };
   }, []);
 
@@ -76,10 +76,10 @@ export default function MainSlide() {
       <article
         className="w-full overflow-hidden h-full relative"
         onMouseEnter={() => {
-          stopInterval();
+          // stopInterval();
         }}
         onMouseLeave={() => {
-          startInterval();
+          // startInterval();
         }}
       >
         <ul
@@ -91,7 +91,11 @@ export default function MainSlide() {
         >
           {todayPokemon?.map(({ name, url }) => {
             const id = url.split("/")[url.split("/").length - 2];
-            return <PokemonCard key={name} name={name} id={String(id)} />;
+            return (
+              <li key={name}>
+                <PokemonCard name={name} id={String(id)} />
+              </li>
+            );
           })}
         </ul>
       </article>
