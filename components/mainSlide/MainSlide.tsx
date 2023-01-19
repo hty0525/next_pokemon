@@ -9,11 +9,6 @@ import PokemonCard from "../pokemonList/pokemonCard/PokemonCard";
 
 export default function MainSlide() {
   const [todayPokemon, setTodayPokemon] = useState<Array<IGetPokemonData>>([]);
-  const [curIdx, setCurIdx] = useState(0);
-
-  const delay = 3000;
-  const ary = new Array(10).fill(10);
-
   const pokemonAllList = useAtomValue(pokemonAllListAtom);
 
   useEffect(() => {
@@ -23,7 +18,7 @@ export default function MainSlide() {
     const pokemonList = [];
     const duplicateCheck = new Set();
 
-    while (pokemonList.length <= 9) {
+    while (pokemonList.length <= 4) {
       const randomNum = Math.floor(Math.random() * pokemonAllList.length + 1);
       if (duplicateCheck.has(randomNum)) {
         continue;
@@ -31,68 +26,90 @@ export default function MainSlide() {
       duplicateCheck.add(randomNum);
       pokemonList.push(pokemonAllList[randomNum]);
     }
-    setTodayPokemon(pokemonList);
+    setTodayPokemon([
+      pokemonList[pokemonList.length - 2],
+      pokemonList[pokemonList.length - 1],
+      ...pokemonList,
+      pokemonList[0],
+      pokemonList[1],
+    ]);
   }, [pokemonAllList]);
 
-  const moveNextSlide = useCallback(() => {
-    if (curIdx >= ary.length - 1) {
-      setCurIdx(0);
-    } else {
-      setCurIdx((prev) => prev + 1);
-    }
-  }, [ary.length, curIdx]);
+  const delay = 2000;
+  const gap = 0;
+  const viewSlideNumber = 2;
+  const transition = delay - 1000;
+
+  const [curIdx, setCurIdx] = useState(0);
+  const [slideTransition, setSlideTranstion] = useState(transition);
 
   const intervalRef = useRef<number | null>(null);
 
-  // const startInterval = () => {
-  //   if (intervalRef.current !== null) return;
-  //   intervalRef.current = window.setInterval(() => {
-  //     setCurIdx((prevIdx) => prevIdx + 1);
-  //   }, delay);
-  // };
+  const startInterval = () => {
+    intervalRef.current = window.setInterval(() => {
+      setCurIdx((prevIdx) => prevIdx + 1);
+    }, delay);
+  };
 
-  // const stopInterval = () => {
-  //   if (intervalRef.current) {
-  //     window.clearInterval(intervalRef.current);
-  //     intervalRef.current = null;
-  //   }
-  // };
+  const stopInterval = () => {
+    if (intervalRef.current) {
+      window.clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+  };
 
   useEffect(() => {
-    // startInterval();
+    startInterval();
     return () => {
-      // if (intervalRef.current !== null) {
-      //   // window.clearInterval(intervalRef.current);
-      // }
+      if (intervalRef.current !== null) {
+        window.clearInterval(intervalRef.current);
+      }
     };
   }, []);
 
   useEffect(() => {
-    if (curIdx >= ary.length) setCurIdx(0);
-  }, [curIdx, ary.length]);
-
+    if (todayPokemon.length === 0) {
+      return;
+    }
+    if (curIdx >= todayPokemon.length - 3) {
+      setSlideTranstion(0);
+      setCurIdx(0);
+      setTimeout(() => {
+        setSlideTranstion(transition);
+        setCurIdx((prev) => prev + 1);
+      }, 10);
+    }
+  }, [curIdx, todayPokemon.length, transition, slideTransition]);
   return (
-    <section className="h-screen w-full relative p-[10%] overflow-hidden flex items-center justify-center">
-      <article
-        className="w-full overflow-hidden h-full relative"
-        onMouseEnter={() => {
-          // stopInterval();
-        }}
-        onMouseLeave={() => {
-          // startInterval();
-        }}
-      >
+    <section className="h-screen w-full relative flex items-center overflow-hidden">
+      <article className="w-1/3 m-auto relative border-4 border-gray-800">
         <ul
-          className="h-full border-4 flex w-full"
+          className="flex items-center m-auto"
+          onMouseEnter={() => {
+            // stopInterval();
+          }}
+          onMouseLeave={() => {
+            // startInterval();
+          }}
           style={{
-            transform: `translateX(-${33.333 * curIdx}%)`,
-            transition: `all ${delay - 1000}ms`,
+            width: `${(todayPokemon.length * 100) / viewSlideNumber}%`,
+            transform: `translateX(-${
+              (100 / todayPokemon.length) * (curIdx + 2)
+            }%)`,
+            transition: `all ${slideTransition}ms`,
+            columnGap: `${gap}rem`,
           }}
         >
-          {todayPokemon?.map(({ name, url }) => {
+          {todayPokemon?.map(({ name, url }, idx) => {
             const id = url.split("/")[url.split("/").length - 2];
             return (
-              <li key={name}>
+              <li
+                key={idx}
+                style={{
+                  width: `${100 / viewSlideNumber}%`,
+                  margin: `1rem`,
+                }}
+              >
                 <PokemonCard name={name} id={String(id)} />
               </li>
             );

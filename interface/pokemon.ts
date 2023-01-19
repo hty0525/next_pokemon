@@ -1,9 +1,6 @@
 export interface IPokemonCard {
   name: string;
   id: string;
-  isTarget?: Boolean;
-  target?(node: HTMLElement | null): void | undefined;
-  isHasNextPage?: Boolean;
 }
 
 export interface IGetPokemonList {
