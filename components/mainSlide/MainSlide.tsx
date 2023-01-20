@@ -11,37 +11,36 @@ export default function MainSlide() {
   const [todayPokemon, setTodayPokemon] = useState<Array<IGetPokemonData>>([]);
   const pokemonAllList = useAtomValue(pokemonAllListAtom);
 
+  const delay = 1500;
+  const gap = 0;
+  const viewSlideNumber = 1;
+  const transition = delay - 1000;
+
+  const [curIdx, setCurIdx] = useState(0);
+  const [slideTransition, setSlideTranstion] = useState(transition);
+
   useEffect(() => {
     if (pokemonAllList.length <= 1) {
       return;
     }
     const pokemonList = [];
+    const slideItemList = [];
     const duplicateCheck = new Set();
 
-    while (pokemonList.length <= 4) {
+    while (pokemonList.length <= 9) {
       const randomNum = Math.floor(Math.random() * pokemonAllList.length + 1);
       if (duplicateCheck.has(randomNum)) {
         continue;
       }
       duplicateCheck.add(randomNum);
       pokemonList.push(pokemonAllList[randomNum]);
+      slideItemList.push(pokemonAllList[randomNum]);
     }
-    setTodayPokemon([
-      pokemonList[pokemonList.length - 2],
-      pokemonList[pokemonList.length - 1],
-      ...pokemonList,
-      pokemonList[0],
-      pokemonList[1],
-    ]);
+    for (let i = 1; i <= viewSlideNumber; i++) {
+      slideItemList.push(pokemonList[i - 1]);
+    }
+    setTodayPokemon([...slideItemList]);
   }, [pokemonAllList]);
-
-  const delay = 2000;
-  const gap = 0;
-  const viewSlideNumber = 2;
-  const transition = delay - 1000;
-
-  const [curIdx, setCurIdx] = useState(0);
-  const [slideTransition, setSlideTranstion] = useState(transition);
 
   const intervalRef = useRef<number | null>(null);
 
@@ -71,7 +70,8 @@ export default function MainSlide() {
     if (todayPokemon.length === 0) {
       return;
     }
-    if (curIdx >= todayPokemon.length - 3) {
+
+    if (curIdx >= todayPokemon.length - viewSlideNumber + 1) {
       setSlideTranstion(0);
       setCurIdx(0);
       setTimeout(() => {
@@ -82,7 +82,7 @@ export default function MainSlide() {
   }, [curIdx, todayPokemon.length, transition, slideTransition]);
   return (
     <section className="h-screen w-full relative flex items-center overflow-hidden">
-      <article className="w-1/3 m-auto relative border-4 border-gray-800">
+      <article className="w-[50%] border-4 border-gray-800 m-auto relative">
         <ul
           className="flex items-center m-auto"
           onMouseEnter={() => {
@@ -93,9 +93,7 @@ export default function MainSlide() {
           }}
           style={{
             width: `${(todayPokemon.length * 100) / viewSlideNumber}%`,
-            transform: `translateX(-${
-              (100 / todayPokemon.length) * (curIdx + 2)
-            }%)`,
+            transform: `translateX(-${(100 / todayPokemon.length) * curIdx}%)`,
             transition: `all ${slideTransition}ms`,
             columnGap: `${gap}rem`,
           }}
@@ -107,7 +105,7 @@ export default function MainSlide() {
                 key={idx}
                 style={{
                   width: `${100 / viewSlideNumber}%`,
-                  margin: `1rem`,
+                  padding: `1rem`,
                 }}
               >
                 <PokemonCard name={name} id={String(id)} />
