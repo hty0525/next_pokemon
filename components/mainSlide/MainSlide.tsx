@@ -11,10 +11,10 @@ export default function MainSlide() {
   const [todayPokemon, setTodayPokemon] = useState<Array<IGetPokemonData>>([]);
   const pokemonAllList = useAtomValue(pokemonAllListAtom);
 
-  const delay = 1500;
+  const delay = 2500;
   const gap = 0;
-  const viewSlideNumber = 1;
-  const transition = delay - 1000;
+  const viewSlideNumber = 3;
+  const transition = 1000;
 
   const [curIdx, setCurIdx] = useState(0);
   const [slideTransition, setSlideTranstion] = useState(transition);
@@ -82,14 +82,14 @@ export default function MainSlide() {
   }, [curIdx, todayPokemon.length, transition, slideTransition]);
   return (
     <section className="h-screen w-full relative flex items-center overflow-hidden">
-      <article className="w-[50%] border-4 border-gray-800 m-auto relative">
+      <article className="w-3/4 max-w-[1200px]  overflow-hidden border-gray-800 m-auto relative">
         <ul
           className="flex items-center m-auto"
           onMouseEnter={() => {
-            // stopInterval();
+            stopInterval();
           }}
           onMouseLeave={() => {
-            // startInterval();
+            startInterval();
           }}
           style={{
             width: `${(todayPokemon.length * 100) / viewSlideNumber}%`,
@@ -105,7 +105,7 @@ export default function MainSlide() {
                 key={idx}
                 style={{
                   width: `${100 / viewSlideNumber}%`,
-                  padding: `1rem`,
+                  padding: `0 1rem`,
                 }}
               >
                 <PokemonCard name={name} id={String(id)} />
