@@ -1,5 +1,17 @@
-import React, { ReactComponentElement } from "react";
+import { useRouter } from "next/router";
+
+import Header from "./header/Header";
+import MainSlide from "./mainSlide/MainSlide";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  return <main className="max-w-[1200px] m-auto">{children}</main>;
+  const router = useRouter();
+  const isMain = router.pathname === "/";
+
+  return (
+    <main className="relative">
+      {isMain && <MainSlide />}
+      <Header />
+      <section className="max-w-[1200px] m-auto relative">{children}</section>
+    </main>
+  );
 }

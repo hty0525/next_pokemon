@@ -10,7 +10,7 @@ export const useGetPokemonListQuery = () =>
       getNextPageParam: ({ next }: IGetPokemonList) => {
         const offset = next.split("?")[1].split("&")[0];
         let nextOffSet = Number(offset.substring(offset.indexOf("=") + 1));
-        if (nextOffSet >= 251) {
+        if (nextOffSet >= 898) {
           return undefined;
         }
         return nextOffSet;
@@ -51,7 +51,7 @@ export const useGetPokemonDescQuery = ({
   key?: string;
 }) => {
   return useQuery(
-    ["useGetPokemonDescQuery", id],
+    ["useGetPokemonDescQuery", id, key],
     () => {
       return pokemonApis.getPokemonDesc(id);
     },
@@ -69,19 +69,14 @@ export const useGetPokemonDescQuery = ({
             return pokemonClass;
 
           case "desc":
-            const checkDupl = new Set();
-            const pokemonDesc = data?.flavor_text_entries
-              .filter(
-                ({ language: { name } }: { language: { name: string } }) =>
-                  name === "ko",
-              )
-              .map(({ flavor_text }: { flavor_text: string }) => {
-                if (checkDupl.has(flavor_text)) return;
-                checkDupl.add(flavor_text);
-                return flavor_text;
-              })
-              .filter((v: string) => v);
-            return pokemonDesc;
+            const pokemonDesc = data?.flavor_text_entries.filter(
+              ({
+                language: { name: language },
+              }: {
+                language: { name: string };
+              }) => language === "ko",
+            );
+            return pokemonDesc[0]?.flavor_text;
 
           default:
             return data;

@@ -1,5 +1,5 @@
-import Main from "../components/Main";
+import PokemonList from "../components/pokemonList/PokemonList";
 
 export default function Home() {
-  return <Main />;
+  return <PokemonList />;
 }
