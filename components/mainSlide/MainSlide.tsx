@@ -12,7 +12,6 @@ export default function MainSlide() {
   const pokemonAllList = useAtomValue(pokemonAllListAtom);
 
   const delay = 2500;
-  const gap = 0;
   const viewSlideNumber = 3;
   const transition = 1000;
 
@@ -67,10 +66,6 @@ export default function MainSlide() {
   }, []);
 
   useEffect(() => {
-    if (todayPokemon.length === 0) {
-      return;
-    }
-
     if (curIdx >= todayPokemon.length - viewSlideNumber + 1) {
       setSlideTranstion(0);
       setCurIdx(0);
@@ -80,6 +75,7 @@ export default function MainSlide() {
       }, 10);
     }
   }, [curIdx, todayPokemon.length, transition, slideTransition]);
+
   return (
     <section className="h-screen w-full relative flex items-center overflow-hidden">
       <article className="w-3/4 max-w-[1200px]  overflow-hidden border-gray-800 m-auto relative">
@@ -95,7 +91,6 @@ export default function MainSlide() {
             width: `${(todayPokemon.length * 100) / viewSlideNumber}%`,
             transform: `translateX(-${(100 / todayPokemon.length) * curIdx}%)`,
             transition: `all ${slideTransition}ms`,
-            columnGap: `${gap}rem`,
           }}
         >
           {todayPokemon?.map(({ name, url }, idx) => {
