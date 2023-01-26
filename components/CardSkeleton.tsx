@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export default function Skeleton() {
+export default function CardSkeleton() {
   return (
     <li className=" border-4 border-gray-600 rounded-2xl p-6 bg-white block select-none relative ">
       <div className="relative w-full pb-[100%] p-1 mb-3 bg-[#f2f2f2] overflow-hidden">

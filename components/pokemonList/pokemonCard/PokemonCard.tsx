@@ -8,7 +8,7 @@ import { useGetPokemonInfoQuery } from "../../../hook/usePokemonQuery";
 import pokemonKoName from "../../../static/pokemonKoName";
 
 import Link from "next/link";
-import Skeleton from "../../Skeleton";
+import Skeleton from "../../CardSkeleton";
 
 export default memo(function PokemonCard({ name, id }: IPokemonCard) {
   const { data: imgUrl, isLoading: imgUrlLoading } = useGetPokemonInfoQuery({
