@@ -21,7 +21,7 @@ export const pokemonApis = {
     return data;
   },
 
-  getPokemonInfo: async ({ id }: { id: string | string[] | undefined }) => {
+  getPokemonInfo: async (id: string | string[] | undefined) => {
     try {
       const { data } = await instance.get(`pokemon/${id}`);
       return data;
