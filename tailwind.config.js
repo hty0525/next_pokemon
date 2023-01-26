@@ -20,7 +20,7 @@ module.exports = {
         },
       },
       animation: {
-        skeleton: "skeleton 1.5s ease-in-out infinite",
+        skeleton: "skeleton 1s ease-in-out infinite",
       },
     },
   },

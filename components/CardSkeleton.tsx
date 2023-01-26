@@ -1,6 +1,9 @@
 import Image from "next/image";
 
 export default function CardSkeleton() {
+  const skeletonClass =
+    "top-0 left-0 absolute animate-skeleton w-10 h-full bg-skeleton";
+
   return (
     <li className=" border-4 border-gray-600 rounded-2xl p-6 bg-white block select-none relative ">
       <div className="relative w-full pb-[100%] p-1 mb-3 bg-[#f2f2f2] overflow-hidden">
@@ -15,7 +18,7 @@ export default function CardSkeleton() {
             objectFit: "contain",
           }}
         />
-        <div className="top-0 left-0 absolute animate-skeleton w-4 h-full bg-skeleton"></div>
+        <div className={skeletonClass}></div>
         <div className="top-0 left-0 absolute animate-skeleton w-4 h-full bg"></div>
       </div>
       <div className=" flex justify-between w-full">
@@ -24,11 +27,11 @@ export default function CardSkeleton() {
             Skeleton
           </p>
           <p className="indent-[-9999px] ">Skeleton</p>
-          <div className="top-0 left-0 absolute animate-skeleton w-4 h-full bg-skeleton"></div>
+          <div className={skeletonClass}></div>
           <div className="top-0 left-0 absolute animate-skeleton w-4 h-full bg"></div>
         </h3>
         <div className=" w-full rounded-sm  bg-[#f2f2f2] relative overflow-hidden">
-          <div className="top-0 left-0 absolute animate-skeleton w-4 h-full bg-skeleton"></div>
+          <div className={skeletonClass}></div>
         </div>
       </div>
     </li>
