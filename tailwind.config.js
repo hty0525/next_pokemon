@@ -6,6 +6,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      backgroundColor: {
+        sk: "#f2f2f2",
+      },
       backgroundImage: {
         skeleton: "linear-gradient(to right, #f2f2f2, #ddd, #f2f2f2)",
       },

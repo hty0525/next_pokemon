@@ -5,6 +5,8 @@ import {
   useGetPokemonInfoQuery,
 } from "../../../hook/usePokemonQuery";
 
+import DetailSkeleton from "../../skeleton/DetailSkeleton";
+
 import pokemonKoName from "../../../static/pokemonKoName";
 import pokemonType from "../../../static/pokemonType";
 
@@ -34,7 +36,8 @@ export default function PokemonDetail({ id }: { id: string | string[] }) {
 
   return (
     <article className="h-[calc(100vh-6rem)] flex items-center ">
-      {!isImgLoading && !isNameLoading && !isTypeLoading && !isClassLoading && (
+      <DetailSkeleton />
+      {/* {!isImgLoading && !isNameLoading && !isTypeLoading && !isClassLoading && (
         <section className="w-full flex items-center m-auto h-3/4 bg-white rounded-3xl border-4 border-gray-800">
           <ul className="flex gap-14 items-center w-full px-[5%]">
             <li className="w-[45%]">
@@ -85,7 +88,7 @@ export default function PokemonDetail({ id }: { id: string | string[] }) {
             </li>
           </ul>
         </section>
-      )}
+      )} */}
     </article>
   );
 }
