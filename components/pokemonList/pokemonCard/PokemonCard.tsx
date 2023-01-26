@@ -11,20 +11,22 @@ import Link from "next/link";
 import CardSkeleton from "../../skeleton/CardSkeleton";
 
 export default memo(function PokemonCard({ name, id }: IPokemonCard) {
-  const { data: imgUrl, isLoading: imgUrlLoading } = useGetPokemonInfoQuery({
+  const { data: imgUrl, isSuccess: imgUrlSisSuccess } = useGetPokemonInfoQuery({
     id,
     key: "ImgUrl",
   });
-  const { data: type, isLoading: typeLoading } = useGetPokemonInfoQuery({
+  const { data: type, isSuccess: typeSisSuccess } = useGetPokemonInfoQuery({
     id,
     key: "Type",
   });
   const checkKo = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
   const pokemonName = checkKo.test(name) ? name : pokemonKoName[name];
 
+  const isSuccess = typeSisSuccess && imgUrlSisSuccess;
+
   return (
     <>
-      {imgUrlLoading && imgUrlLoading ? (
+      {!isSuccess ? (
         <CardSkeleton />
       ) : (
         <Link
