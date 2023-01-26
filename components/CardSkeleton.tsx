@@ -5,7 +5,7 @@ export default function CardSkeleton() {
     "top-0 left-0 absolute animate-skeleton w-10 h-full bg-skeleton";
 
   return (
-    <li className=" border-4 border-gray-600 rounded-2xl p-6 bg-white block select-none relative ">
+    <div className=" border-4 border-gray-600 rounded-2xl p-6 bg-white block select-none relative ">
       <div className="relative w-full pb-[100%] p-1 mb-3 bg-[#f2f2f2] overflow-hidden">
         <Image
           className="p-4 opacity-0"
@@ -34,6 +34,6 @@ export default function CardSkeleton() {
           <div className={skeletonClass}></div>
         </div>
       </div>
-    </li>
+    </div>
   );
 }

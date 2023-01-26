@@ -16,7 +16,7 @@ export default function MainSlide() {
   const transition = 1000;
 
   const [curIdx, setCurIdx] = useState(0);
-  const [slideTransition, setSlideTranstion] = useState(transition);
+  const [slideTransition, setSlideTranstion] = useState(0);
 
   useEffect(() => {
     if (pokemonAllList.length <= 1) {
@@ -75,6 +75,8 @@ export default function MainSlide() {
       }, 10);
     }
   }, [curIdx, todayPokemon.length, transition, slideTransition]);
+
+  console.log(slideTransition);
 
   return (
     <section className="h-screen w-full relative flex items-center overflow-hidden">

@@ -8,7 +8,7 @@ import { useGetPokemonInfoQuery } from "../../../hook/usePokemonQuery";
 import pokemonKoName from "../../../static/pokemonKoName";
 
 import Link from "next/link";
-import Skeleton from "../../CardSkeleton";
+import CardSkeleton from "../../CardSkeleton";
 
 export default memo(function PokemonCard({ name, id }: IPokemonCard) {
   const { data: imgUrl, isLoading: imgUrlLoading } = useGetPokemonInfoQuery({
@@ -21,13 +21,11 @@ export default memo(function PokemonCard({ name, id }: IPokemonCard) {
   });
   const checkKo = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
   const pokemonName = checkKo.test(name) ? name : pokemonKoName[name];
-  console.log(imgUrlLoading);
-  console.log(typeLoading);
 
   return (
     <>
-      {!imgUrlLoading && !imgUrlLoading ? (
-        <Skeleton />
+      {imgUrlLoading && imgUrlLoading ? (
+        <CardSkeleton />
       ) : (
         <Link
           className="border-4 border-gray-600 rounded-2xl p-6 bg-white block"
