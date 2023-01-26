@@ -21,7 +21,7 @@ export default function DetailSkeleton() {
         </li>
         <li className="flex-1">
           <h3 className="text-5xl mb-10 text font-extrabold">
-            <div className="overflow-hidden relative text-[0.4em] inline-block text-gray-400 leading-5 font-bold text-transparent bg-sk">
+            <div className="overflow-hidden relative text-[0.4em] inline-block  leading-5 font-bold text-transparent bg-sk">
               No.
               <Skeleton />
             </div>
@@ -39,7 +39,7 @@ export default function DetailSkeleton() {
           </div>
           <div className="flex text-xl">
             <div className="text-center mr-10">
-              <div className="overflow-hidden relative mb-4 text-gray-400 text-transparent bg-sk">
+              <div className="overflow-hidden relative mb-4  text-transparent bg-sk">
                 타입
                 <Skeleton />
               </div>
