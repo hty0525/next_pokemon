@@ -43,7 +43,8 @@ export default function DetailSkeleton() {
                 타입
                 <Skeleton />
               </div>
-              <div className="flex gap-3">
+              <div className="flex gap-3 relative overflow-hidden">
+                <Skeleton />
                 <div className="overflow-hidden relative bg-sk">
                   <Image
                     className="opacity-0 "
@@ -52,6 +53,7 @@ export default function DetailSkeleton() {
                     width="50"
                     height="50"
                   />
+                  <Skeleton />
                   <div className="overflow-hidden relative text-center mt-2 text-transparent bg-sk">
                     타입이름
                     <Skeleton />
