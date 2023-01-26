@@ -16,7 +16,7 @@ export default function MainSlide() {
   const transition = 1000;
 
   const [curIdx, setCurIdx] = useState(0);
-  const [slideTransition, setSlideTranstion] = useState(transition);
+  const [slideTransition, setSlideTranstion] = useState(0);
 
   useEffect(() => {
     if (pokemonAllList.length <= 1) {
@@ -66,6 +66,12 @@ export default function MainSlide() {
   }, []);
 
   useEffect(() => {
+    if (todayPokemon.length === 0) {
+      setTimeout(() => {
+        setSlideTranstion(transition);
+      }, delay - 1);
+      return;
+    }
     if (curIdx >= todayPokemon.length - viewSlideNumber + 1) {
       setSlideTranstion(0);
       setCurIdx(0);
