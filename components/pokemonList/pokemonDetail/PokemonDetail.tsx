@@ -10,41 +10,36 @@ import DetailSkeleton from "../../skeleton/DetailSkeleton";
 import pokemonKoName from "../../../static/pokemonKoName";
 import pokemonType from "../../../static/pokemonType";
 
-import { useDetailQuery } from "../../../hook/usePokemonQuery";
-
 export default function PokemonDetail({ id }: { id: string | string[] }) {
-  const { data: name, isLoading: isNameLoading } = useGetPokemonDescQuery({
+  const { data: name, isSuccess: isNameisSuccess } = useGetPokemonDescQuery({
     id,
     key: "Name",
   });
-  const { data: pokeClass, isLoading: isClassLoading } = useGetPokemonDescQuery(
-    { id, key: "Class" },
-  );
+  const { data: pokeClass, isSuccess: isClassisSuccess } =
+    useGetPokemonDescQuery({ id, key: "Class" });
 
   const { data: pokeDesc } = useGetPokemonDescQuery({ id, key: "Desc" });
 
-  const { data: imgUrl, isLoading: isImgLoading } = useGetPokemonInfoQuery({
+  const { data: imgUrl, isSuccess: isImgisSuccess } = useGetPokemonInfoQuery({
     id,
     key: "ImgUrl",
   });
 
-  const { data: type, isLoading: isTypeLoading } = useGetPokemonInfoQuery({
+  const { data: type, isSuccess: isTypeisSuccess } = useGetPokemonInfoQuery({
     id,
     key: "Type",
   });
 
-  const result = useDetailQuery({
-    id,
-  });
-
-  console.log(result);
-
   const pokemonName = pokemonKoName[name];
+
+  const isSuccess =
+    isImgisSuccess && isNameisSuccess && isTypeisSuccess && isClassisSuccess;
 
   return (
     <article className="h-[calc(100vh-6rem)] flex items-center ">
-      <DetailSkeleton />
-      {/* {!isImgLoading && !isNameLoading && !isTypeLoading && !isClassLoading && (
+      {!isSuccess ? (
+        <DetailSkeleton />
+      ) : (
         <section className="w-full flex items-center m-auto h-3/4 bg-white rounded-3xl border-4 border-gray-800">
           <ul className="flex gap-14 items-center w-full px-[5%]">
             <li className="w-[45%]">
@@ -95,7 +90,7 @@ export default function PokemonDetail({ id }: { id: string | string[] }) {
             </li>
           </ul>
         </section>
-      )} */}
+      )}
     </article>
   );
 }

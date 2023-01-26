@@ -13,11 +13,11 @@ import CardSkeleton from "../../skeleton/CardSkeleton";
 export default memo(function PokemonCard({ name, id }: IPokemonCard) {
   const { data: imgUrl, isLoading: imgUrlLoading } = useGetPokemonInfoQuery({
     id,
-    key: "imgUrl",
+    key: "ImgUrl",
   });
   const { data: type, isLoading: typeLoading } = useGetPokemonInfoQuery({
     id,
-    key: "type",
+    key: "Type",
   });
   const checkKo = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
   const pokemonName = checkKo.test(name) ? name : pokemonKoName[name];
