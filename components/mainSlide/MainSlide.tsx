@@ -66,6 +66,12 @@ export default function MainSlide() {
   }, []);
 
   useEffect(() => {
+    if (todayPokemon.length === 0) {
+      setTimeout(() => {
+        setSlideTranstion(transition);
+      }, delay - 1);
+      return;
+    }
     if (curIdx >= todayPokemon.length - viewSlideNumber + 1) {
       setSlideTranstion(0);
       setCurIdx(0);
@@ -75,8 +81,6 @@ export default function MainSlide() {
       }, 10);
     }
   }, [curIdx, todayPokemon.length, transition, slideTransition]);
-
-  console.log(slideTransition);
 
   return (
     <section className="h-screen w-full relative flex items-center overflow-hidden">
