@@ -10,27 +10,34 @@ import DetailSkeleton from "../../skeleton/DetailSkeleton";
 import pokemonKoName from "../../../static/pokemonKoName";
 import pokemonType from "../../../static/pokemonType";
 
+import { useDetailQuery } from "../../../hook/usePokemonQuery";
+
 export default function PokemonDetail({ id }: { id: string | string[] }) {
   const { data: name, isLoading: isNameLoading } = useGetPokemonDescQuery({
     id,
-    key: "name",
+    key: "Name",
   });
+  const { data: pokeClass, isLoading: isClassLoading } = useGetPokemonDescQuery(
+    { id, key: "Class" },
+  );
+
+  const { data: pokeDesc } = useGetPokemonDescQuery({ id, key: "Desc" });
 
   const { data: imgUrl, isLoading: isImgLoading } = useGetPokemonInfoQuery({
     id,
-    key: "imgUrl",
+    key: "ImgUrl",
   });
 
   const { data: type, isLoading: isTypeLoading } = useGetPokemonInfoQuery({
     id,
-    key: "type",
+    key: "Type",
   });
 
-  const { data: pokeClass, isLoading: isClassLoading } = useGetPokemonDescQuery(
-    { id, key: "class" },
-  );
+  const result = useDetailQuery({
+    id,
+  });
 
-  const { data: pokeDesc } = useGetPokemonDescQuery({ id, key: "desc" });
+  console.log(result);
 
   const pokemonName = pokemonKoName[name];
 

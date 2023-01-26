@@ -1,4 +1,4 @@
-import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
+import { useQuery, useInfiniteQuery, useQueries } from "@tanstack/react-query";
 import { pokemonApis } from "../apis/pokemonApis";
 import { IGetPokemonList, IGetPokemonInfo } from "../interface/pokemon";
 
@@ -22,26 +22,22 @@ export const useGetPokemonAllListQuery = () =>
   useQuery(["pokemonAllList"], () => pokemonApis.getPokemonAllList());
 
 export const useGetPokemonInfoQuery = ({ id, key }: IGetPokemonInfo) =>
-  useQuery(
-    ["useGetPokemonInfoQuery", id, key],
-    () => pokemonApis.getPokemonInfo({ id }),
-    {
-      select: (data) => {
-        switch (key) {
-          case "imgUrl":
-            return data?.sprites?.other?.["official-artwork"].front_default;
+  useQuery([`pokemon${key}`, id], () => pokemonApis.getPokemonInfo(id), {
+    select: (data) => {
+      switch (key) {
+        case "ImgUrl":
+          return data?.sprites?.other?.["official-artwork"].front_default;
 
-          case "type":
-            return data?.types.map(
-              ({ type: { name } }: { type: { name: string } }) => name,
-            );
+        case "Type":
+          return data?.types.map(
+            ({ type: { name } }: { type: { name: string } }) => name,
+          );
 
-          default:
-            return data;
-        }
-      },
+        default:
+          return data;
+      }
     },
-  );
+  });
 
 export const useGetPokemonDescQuery = ({
   id,
@@ -51,24 +47,24 @@ export const useGetPokemonDescQuery = ({
   key?: string;
 }) => {
   return useQuery(
-    ["useGetPokemonDescQuery", id, key],
+    [`pokemon${key}`, id],
     () => {
       return pokemonApis.getPokemonDesc(id);
     },
     {
       select: (data) => {
         switch (key) {
-          case "name":
+          case "Name":
             return data?.name;
 
-          case "class":
+          case "Class":
             const pokemonClass = data?.genera.filter(
               ({ language: { name } }: { language: { name: string } }) =>
                 name === "ko",
             )[0].genus;
             return pokemonClass;
 
-          case "desc":
+          case "Desc":
             const pokemonDesc = data?.flavor_text_entries.filter(
               ({
                 language: { name: language },
@@ -85,3 +81,58 @@ export const useGetPokemonDescQuery = ({
     },
   );
 };
+
+export const useDetailQuery = ({ id }: { id: string | string[] }) =>
+  useQueries({
+    queries: [
+      {
+        queryKey: ["pokemonName", id],
+        queryFn: () => pokemonApis.getPokemonDesc(id),
+        select: (data) => {
+          return data?.name;
+        },
+      },
+      {
+        queryKey: ["pokemonClass", id],
+        queryFn: () => pokemonApis.getPokemonDesc(id),
+        select: (data) => {
+          const pokemonClass = data?.genera.filter(
+            ({ language: { name } }: { language: { name: string } }) =>
+              name === "ko",
+          )[0].genus;
+          return pokemonClass;
+        },
+      },
+      {
+        queryKey: ["pokemonDesc", id],
+        queryFn: () => pokemonApis.getPokemonDesc(id),
+        select: (data) => {
+          const pokemonDesc = data?.flavor_text_entries.filter(
+            ({
+              language: { name: language },
+            }: {
+              language: { name: string };
+            }) => language === "ko",
+          );
+          return pokemonDesc[0]?.flavor_text;
+          return;
+        },
+      },
+      {
+        queryKey: ["pokemonImgUrl", id],
+        queryFn: () => pokemonApis.getPokemonInfo(id),
+        select: (data) => {
+          return data?.sprites?.other?.["official-artwork"].front_default;
+        },
+      },
+      {
+        queryKey: ["pokemonType", id],
+        queryFn: () => pokemonApis.getPokemonInfo(id),
+        select: (data) => {
+          return data?.types.map(
+            ({ type: { name } }: { type: { name: string } }) => name,
+          );
+        },
+      },
+    ],
+  });
