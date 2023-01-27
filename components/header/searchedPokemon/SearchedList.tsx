@@ -26,7 +26,7 @@ export default function SearchedList({
             }
           }}
         >
-          <ul className="max-w-[1200px] m-auto bg-white h-full rounded-xl overflow-y-auto p-4 grid grid-cols-3 gap-5 w-full">
+          <ul className="max-w-[1200px] m-auto bg-white h-full rounded-xl overflow-y-auto p-4 grid md:grid-cols-2 lg:grid-cols-3 gap-5 w-full">
             {pokemonList?.map(({ name, url }, idx) => {
               const id = url.split("/")[url.split("/").length - 2];
               return (
