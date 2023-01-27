@@ -51,17 +51,17 @@ export default function SearchPokemon({
   }, [isSuccess, pokemonAllListData?.results, setPokemonAllList]);
 
   return (
-    <form className="m-auto w-full">
+    <div className="m-auto w-full px-4">
       <input
         value={pokemonName}
         onChange={searchPokemonHandler}
         onFocus={() => {
           setIsSearched(true);
         }}
-        className="border-b-4 border-gray-500 block w-1/2 py-1 px-2 m-auto text-xl"
+        className="border-b-4 border-gray-500 block w-full md:w-1/2 py-1 px-2 m-auto text-xl"
         type="text"
         placeholder="찾고싶은 포켓몬을 입력해 주세요!"
       />
-    </form>
+    </div>
   );
 }

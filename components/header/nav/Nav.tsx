@@ -11,7 +11,7 @@ export default function Nav({
 }) {
   return (
     <nav className="flex items-center justify-center m-auto relative h-full max-w-[1200px]">
-      <h1 className="absolute left-0">
+      <h1 className="absolute left-0 hidden md:block">
         <Link href="/">
           <Image
             src="/image/main_logo.png"

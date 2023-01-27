@@ -12,14 +12,13 @@ export default function SearchedList({
   isSearched: boolean;
   setIsSearched: Dispatch<SetStateAction<boolean>>;
 }) {
-
   const pokemonList = useAtomValue(searchedPokemonAtom);
-  
+
   return (
     <>
       {isSearched && (
         <div
-          className="absolute top-[100%] w-full bg-[rgba(0,0,0,.3)] h-[calc(100vh-6rem)] overflow-hidden py-12"
+          className="absolute top-[100%] w-full bg-[rgba(0,0,0,.3)] h-[calc(100vh-6rem)] overflow-hidden py-12 px-5"
           onClick={(e) => {
             const target = e.target as HTMLDivElement;
             if (target.tagName === "DIV") {
@@ -27,7 +26,7 @@ export default function SearchedList({
             }
           }}
         >
-          <ul className="max-w-[1200px] m-auto bg-white h-full rounded-xl p-4 overflow-y-scroll grid grid-cols-3 gap-5 w-full">
+          <ul className="max-w-[1200px] m-auto bg-white h-full rounded-xl overflow-y-auto p-4 grid grid-cols-3 gap-5 w-full">
             {pokemonList?.map(({ name, url }, idx) => {
               const id = url.split("/")[url.split("/").length - 2];
               return (
