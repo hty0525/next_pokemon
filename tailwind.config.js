@@ -6,6 +6,12 @@ module.exports = {
   ],
   theme: {
     extend: {
+      screens: {
+        sm: { min: "375px" },
+        md: { min: "768px" },
+        lg: { min: "1024px" },
+        xl: { min: "1200px" },
+      },
       backgroundColor: {
         sk: "#f2f2f2",
       },

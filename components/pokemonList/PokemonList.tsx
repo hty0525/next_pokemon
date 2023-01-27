@@ -37,7 +37,7 @@ export default function PokemonList() {
   );
 
   return (
-    <ul className="grid grid-cols-4 gap-5 w-full m-auto py-10">
+    <ul className="grid  gap-5 w-full m-auto py-10 md:grid-cols-2 lg:grid-cols-3  xl:grid-cols-4">
       {pokemonList?.pages?.map(
         ({ results }, pageIndex: number, { length: pagesLength }) => {
           return results.map(
