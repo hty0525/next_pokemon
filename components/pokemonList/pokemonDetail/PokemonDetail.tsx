@@ -54,7 +54,7 @@ export default function PokemonDetail({ id }: { id: string | string[] }) {
               </div>
             </li>
             <li className="flex-1">
-              <h3 className="text-4xl lg:text-5xl mb-10 text font-extrabold">
+              <h3 className="text-3xl md:text-4xl lg:text-5xl mb-10 font-extrabold">
                 <p className="text-[0.4em] text-gray-400 leading-5 font-bold">
                   No.{" "}
                   {id.length < 2 ? `00${id}` : id.length < 3 ? `0${id}` : id}
