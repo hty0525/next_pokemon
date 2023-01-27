@@ -3,6 +3,8 @@ import { useEffect, useRef, useState } from "react";
 import { useAtomValue } from "jotai";
 import { pokemonAllListAtom } from "../../atom/atom";
 
+import useMediaQuery from "../../hook/useMediaQuery";
+
 import { IGetPokemonData } from "../../interface/pokemon";
 
 import PokemonCard from "../pokemonList/pokemonCard/PokemonCard";
@@ -11,8 +13,12 @@ export default function MainSlide() {
   const [todayPokemon, setTodayPokemon] = useState<Array<IGetPokemonData>>([]);
   const pokemonAllList = useAtomValue(pokemonAllListAtom);
 
+  const pc = useMediaQuery("screen and (min-width:1024px)");
+  const tablet = useMediaQuery("screen and (min-width:768px)");
+  const mobile = useMediaQuery("screen and (min-width:320px)");
+
   const delay = 2500;
-  const viewSlideNumber = 3;
+  const viewSlideNumber = pc ? 3 : tablet && mobile ? 2 : 1;
   const transition = 1000;
 
   const [curIdx, setCurIdx] = useState(0);
@@ -39,7 +45,7 @@ export default function MainSlide() {
       slideItemList.push(pokemonList[i - 1]);
     }
     setTodayPokemon([...slideItemList]);
-  }, [pokemonAllList]);
+  }, [pokemonAllList, viewSlideNumber]);
 
   const intervalRef = useRef<number | null>(null);
 
@@ -80,11 +86,17 @@ export default function MainSlide() {
         setCurIdx((prev) => prev + 1);
       }, 10);
     }
-  }, [curIdx, todayPokemon.length, transition, slideTransition]);
+  }, [
+    curIdx,
+    todayPokemon.length,
+    transition,
+    slideTransition,
+    viewSlideNumber,
+  ]);
 
   return (
     <section className="h-screen w-full relative flex items-center overflow-hidden">
-      <article className="w-3/4 max-w-[1200px]  overflow-hidden border-gray-800 m-auto relative">
+      <article className="max-w-[1200px]  overflow-hidden border-gray-800 m-auto relative">
         <ul
           className="flex items-center m-auto"
           onMouseEnter={() => {

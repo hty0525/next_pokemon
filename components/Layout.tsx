@@ -11,7 +11,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <main className="relative">
       {isMain && <MainSlide />}
       <Header />
-      <section className="max-w-[1200px] m-auto relative">{children}</section>
+      <section className="max-w-[1200px] m-auto relative px-3">
+        {children}
+      </section>
     </main>
   );
 }
