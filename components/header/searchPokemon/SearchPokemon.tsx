@@ -11,8 +11,10 @@ import { IPokemonCard } from "../../../interface/pokemon";
 
 export default function SearchPokemon({
   setIsSearched,
+  isToggle,
 }: {
   setIsSearched: Dispatch<SetStateAction<boolean>>;
+  isToggle: boolean;
 }) {
   const [pokemonName, setPokemonName] = useState<string>("");
 
@@ -51,14 +53,21 @@ export default function SearchPokemon({
   }, [isSuccess, pokemonAllListData?.results, setPokemonAllList]);
 
   return (
-    <div className="m-auto w-full px-4">
+    <div
+      className="px-16 md:px-0 overflow-hidden w-full h-full absolute md:static text-center leading-[6rem] bg-white md:bg-transparent transition"
+      style={{
+        transform: !isToggle
+          ? "translateX(0)"
+          : "translateX(calc(100% + 2.5rem))",
+      }}
+    >
       <input
         value={pokemonName}
         onChange={searchPokemonHandler}
         onFocus={() => {
           setIsSearched(true);
         }}
-        className="border-b-4 border-gray-500 block w-full md:w-1/2 py-1 px-2 m-auto text-xl"
+        className="transition-all border-b-4 border-gray-500 w-full md:w-1/2 py-1 px-2 text-xl"
         type="text"
         placeholder="찾고싶은 포켓몬을 입력해 주세요!"
       />

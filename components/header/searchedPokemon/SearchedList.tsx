@@ -26,16 +26,18 @@ export default function SearchedList({
             }
           }}
         >
-          <ul className="max-w-[1200px] m-auto bg-white h-full rounded-xl overflow-y-auto p-4 grid md:grid-cols-2 lg:grid-cols-3 gap-5 w-full">
-            {pokemonList?.map(({ name, url }, idx) => {
-              const id = url.split("/")[url.split("/").length - 2];
-              return (
-                <li key={idx}>
-                  <PokemonCard name={name} id={String(id)} />
-                </li>
-              );
-            })}
-          </ul>
+          <div className="h-full py-4 bg-white rounded-xl">
+            <ul className=" m-auto h-full px-4 grid overflow-y-auto md:grid-cols-2 lg:grid-cols-3 gap-5 w-full">
+              {pokemonList?.map(({ name, url }, idx) => {
+                const id = url.split("/")[url.split("/").length - 2];
+                return (
+                  <li key={idx}>
+                    <PokemonCard name={name} id={String(id)} />
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
         </div>
       )}
     </>
