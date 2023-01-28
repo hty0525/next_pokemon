@@ -56,7 +56,7 @@ export default function SearchPokemon({
     <div
       className="px-16 md:px-0 overflow-hidden w-full h-full absolute md:static text-center leading-[6rem] bg-white md:bg-transparent transition"
       style={{
-        transform: isToggle
+        transform: !isToggle
           ? "translateX(0)"
           : "translateX(calc(100% + 2.5rem))",
       }}
