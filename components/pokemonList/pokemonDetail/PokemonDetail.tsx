@@ -73,7 +73,7 @@ export default function PokemonDetail({ id }: { id: string | string[] }) {
                         <Image
                           key={type}
                           src={`/image/pokemonTypesImg/${type}.png`}
-                          alt={pokemonName}
+                          alt={pokemonName ?? "포켓몬 사진"}
                           width="50"
                           height="50"
                         />

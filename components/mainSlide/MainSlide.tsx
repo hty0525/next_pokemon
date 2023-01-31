@@ -33,7 +33,8 @@ export default function MainSlide() {
     const duplicateCheck = new Set();
 
     while (pokemonList.length <= 9) {
-      const randomNum = Math.floor(Math.random() * pokemonAllList.length + 1);
+      const randomNum = Math.floor(Math.random() * pokemonAllList.length);
+
       if (duplicateCheck.has(randomNum)) {
         continue;
       }

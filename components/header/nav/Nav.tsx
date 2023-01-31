@@ -22,7 +22,7 @@ export default function Nav({
 
   return (
     <nav className="flex items-center justify-center m-auto relative h-full max-w-[1200px] overflow-hidden">
-      <h1 className="md:absolute left-0 static">
+      <h1 className="md:absolute left-0 static md:z-50">
         <Link href="/">
           <Image
             src="/image/main_logo.png"
