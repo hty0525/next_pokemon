@@ -7,10 +7,15 @@ import MainSlide from "./mainSlide/MainSlide";
 export default function Layout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const isMain = router.pathname === "/";
-  const [saveScrollY, setSaveScrollY] = useState<number>(0);
-  const [restoreScrollY, setRestoreScrollY] = useState<number>(0);
+  const [saveScrollY, setSaveScrollY] = useState(0);
+  const [restoreScrollY, setRestoreScrollY] = useState(0);
+  const [historyLength, setHistoryLength] = useState(0);
 
   useEffect(() => {
+    if (window.history.length !== historyLength) {
+      setHistoryLength(window.history.length);
+      return;
+    }
     const onRouteChangeStart = () => {
       setRestoreScrollY(saveScrollY);
       setSaveScrollY(window.scrollY);
@@ -26,7 +31,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       router.events.off("routeChangeStart", onRouteChangeStart);
       router.events.off("routeChangeComplete", onRouteChangeComplete);
     };
-  }, [saveScrollY, router, restoreScrollY]);
+  }, [saveScrollY, router, restoreScrollY, historyLength]);
 
   return (
     <main className="relative">
