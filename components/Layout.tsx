@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import Header from "./header/Header";
 import MainSlide from "./mainSlide/MainSlide";
@@ -7,36 +7,26 @@ import MainSlide from "./mainSlide/MainSlide";
 export default function Layout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const isMain = router.pathname === "/";
-  const [scrollY, setScrollY] = useState(0);
+  const [saveScrollY, setSaveScrollY] = useState<number>(0);
+  const [restoreScrollY, setRestoreScrollY] = useState<number>(0);
 
   useEffect(() => {
-    console.log(scrollY);
-    router.events.on("routeChangeStart", () => {
-      console.log(123456);
-      setScrollY(window.scrollY);
-    });
+    const onRouteChangeStart = () => {
+      setRestoreScrollY(saveScrollY);
+      setSaveScrollY(window.scrollY);
+    };
+    const onRouteChangeComplete = () => {
+      window.scroll(0, restoreScrollY);
+    };
 
-    router.events.on("routeChangeComplete", () => {
-      window.scrollTo(0, scrollY);
-    });
-
-    // router.beforePopState(() => {
-    //   console.log("beforePopState", router.asPath);
-    //   console.log(
-    //     "beforePopStatebeforePopStatebeforePopStatebeforePopStatebeforePopStatebeforePopState",
-    //   );
-    //   sessionStorage.setItem("nextPage", router.asPath);
-    //   if (scrollY) {
-    //     window.scrollTo(0, scrollY);
-    //     sessionStorage.removeItem("scrollY");
-    //   }
-    //   return true;
-    // });
+    router.events.on("routeChangeStart", onRouteChangeStart);
+    router.events.on("routeChangeComplete", onRouteChangeComplete);
 
     return () => {
-      sessionStorage.setItem("scrollY", `${window.scrollY}`);
+      router.events.off("routeChangeStart", onRouteChangeStart);
+      router.events.off("routeChangeComplete", onRouteChangeComplete);
     };
-  }, [router, scrollY]);
+  }, [saveScrollY, router, restoreScrollY]);
 
   return (
     <main className="relative">
