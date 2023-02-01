@@ -44,7 +44,7 @@ export default function App({ Component, pageProps }: AppProps) {
           />
           <meta
             property="og:image"
-            content="https://next-pokemon-hty0525.vercel.app/"
+            content="https://github.com/hty0525/next_pokemon/blob/main/public/image/%08ogImg.png?raw=true"
           />
 
           <link rel="icon" href="/favico.ico" />
