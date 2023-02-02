@@ -115,6 +115,15 @@ export default function MainSlide() {
     setCurIdx,
   ]);
 
+  useEffect(() => {
+    window.addEventListener("focus", startInterval);
+    window.addEventListener("blur", stopInterval);
+    return () => {
+      window.removeEventListener("focus", startInterval);
+      window.removeEventListener("blur", stopInterval);
+    };
+  });
+
   return (
     <section className="h-screen w-full relative flex items-center overflow-hidden">
       <article className="max-w-[1200px] overflow-hidden m-auto relative">
