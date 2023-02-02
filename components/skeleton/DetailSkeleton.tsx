@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 import Skeleton from "./Skeleton";
 
 export default function DetailSkeleton() {
@@ -8,14 +6,6 @@ export default function DetailSkeleton() {
       <ul className="flex gap-14 items-center w-full flex-col md:flex-row p-[10%] md:px-[5%]">
         <li className="md:w-[40%] w-full p-[5%]">
           <div className="relative w-full pb-[100%] bg-sk rounded-xl bg overflow-hidden">
-            <Image
-              className="opacity-0"
-              src={"/image/monsterBall.png"}
-              alt={"Skeleton"}
-              fill
-              priority
-              sizes="auto"
-            ></Image>
             <Skeleton />
           </div>
         </li>
@@ -46,13 +36,6 @@ export default function DetailSkeleton() {
               <div className="flex gap-3 relative overflow-hidden">
                 <Skeleton />
                 <div className="overflow-hidden relative bg-sk">
-                  <Image
-                    className="opacity-0 "
-                    src={`/image/monsterBall.png`}
-                    alt={"Skeleton"}
-                    width="50"
-                    height="50"
-                  />
                   <Skeleton />
                   <div className="overflow-hidden relative text-center mt-2 text-transparent bg-sk">
                     타입이름

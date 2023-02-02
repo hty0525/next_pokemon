@@ -29,6 +29,7 @@ export default function Nav({
             alt="logo"
             width={200}
             height={200}
+            priority
             style={{ height: "auto", width: "auto" }}
           />
         </Link>
@@ -44,6 +45,7 @@ export default function Nav({
           <Image
             src="/image/smallMonsterBall.png"
             alt="searchIcon"
+            priority={false}
             width={40}
             height={40}
           />

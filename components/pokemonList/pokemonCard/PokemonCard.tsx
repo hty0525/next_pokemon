@@ -40,7 +40,7 @@ export default memo(function PokemonCard({ name, id }: IPokemonCard) {
               <Image
                 className="p-4"
                 fill
-                src={imgUrl ?? "/image/monsterBall.png"}
+                src={imgUrl}
                 alt={pokemonName}
                 sizes="100vw,100vh"
                 priority
@@ -61,9 +61,9 @@ export default memo(function PokemonCard({ name, id }: IPokemonCard) {
                 {type?.map((type: string) => (
                   <div key={type}>
                     <Image
-                      key={type}
                       src={`/image/pokemonTypesImg/${type}.png`}
                       alt={pokemonName}
+                      priority
                       width={40}
                       height={40}
                       style={{ width: "auto", height: "auto" }}
