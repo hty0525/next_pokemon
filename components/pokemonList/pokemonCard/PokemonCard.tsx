@@ -50,13 +50,13 @@ export default memo(function PokemonCard({ name, id }: IPokemonCard) {
               />
             </div>
             <div className="flex justify-between items-end">
-              <h3 className="text-2xl font-extrabold">
-                <p className="text-[0.6em] text-gray-400 leading-5 font-bold">
+              <p className="text-2xl font-extrabold">
+                <p className="text-[0.6em] text-gray-600 leading-5 font-semibold">
                   No.{" "}
                   {id.length < 2 ? `00${id}` : id.length < 3 ? `0${id}` : id}
                 </p>
                 {pokemonName}
-              </h3>
+              </p>
               <div className="flex">
                 {type?.map((type: string) => (
                   <div key={type}>
