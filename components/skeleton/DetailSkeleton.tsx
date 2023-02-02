@@ -10,7 +10,7 @@ export default function DetailSkeleton() {
           </div>
         </li>
         <li className="flex-1">
-          <h3 className="text-3xl md:text-4xl lg:text-5xl mb-10">
+          <div className="text-3xl md:text-4xl lg:text-5xl mb-10">
             <div className="overflow-hidden relative text-[0.4em] inline-block  leading-5 font-bold text-transparent bg-sk">
               No.
               <Skeleton />
@@ -20,7 +20,7 @@ export default function DetailSkeleton() {
               포켓몬 번호
               <Skeleton />
             </div>
-          </h3>
+          </div>
           <div className="mb-10 text-l">
             <div className="overflow-hidden relative text-xl lg:text-2xl text-transparent bg-sk w-3/4">
               포켓몬 설명
