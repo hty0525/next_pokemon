@@ -71,11 +71,13 @@ export default function PokemonDetail({ id }: { id: string | string[] }) {
                     {type?.map((type: string) => (
                       <div key={type}>
                         <Image
-                          key={type}
                           src={`/image/pokemonTypesImg/${type}.png`}
-                          alt={pokemonName ?? "포켓몬 사진"}
-                          width="50"
-                          height="50"
+                          alt={type}
+                          priority
+                          width={40}
+                          height={40}
+                          style={{ width: "auto", height: "auto" }}
+                          title={type}
                         />
                         <p className="text-center mt-2">{pokemonType[type]}</p>
                       </div>
