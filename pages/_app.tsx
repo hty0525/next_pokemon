@@ -45,6 +45,10 @@ export default function App({ Component, pageProps }: AppProps) {
           <meta property="og:image" content="/image/ogImg.png" />
           <meta property="og:image:width" content="1200" />
           <meta property="og:image:height" content="630" />
+          <meta
+            name="google-site-verification"
+            content="XyesrM_C06HGRkv9gazbBnLJtF_bGlZd7keCo0aJEgk"
+          />
           <link rel="icon" href="/favico.ico" />
         </Head>
         <Layout>
