@@ -51,10 +51,10 @@ export default memo(function PokemonCard({ name, id }: IPokemonCard) {
             </div>
             <div className="flex justify-between items-end">
               <p className="text-2xl font-extrabold">
-                <p className="text-[0.6em] text-gray-600 leading-5 font-semibold">
+                <span className="text-[0.6em] block text-gray-600 leading-5 font-semibold">
                   No.{" "}
                   {id.length < 2 ? `00${id}` : id.length < 3 ? `0${id}` : id}
-                </p>
+                </span>
                 {pokemonName}
               </p>
               <div className="flex">

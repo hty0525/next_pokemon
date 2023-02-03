@@ -1,16 +1,23 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
-import { useAtomValue } from "jotai";
-import { pokemonAllListAtom } from "../../atom/atom";
+import { useAtomValue, useAtom } from "jotai";
+
+import {
+  pokemonAllListAtom,
+  slideCurIndex,
+  todayPokemonAtomNum,
+} from "../../atom/atom";
 
 import useMediaQuery from "../../hook/useMediaQuery";
 
+import PokemonCard from "../pokemonList/pokemonCard/PokemonCard";
 import { IGetPokemonData } from "../../interface/pokemon";
 
-import PokemonCard from "../pokemonList/pokemonCard/PokemonCard";
-
 export default function MainSlide() {
-  const [todayPokemon, setTodayPokemon] = useState<Array<IGetPokemonData>>([]);
+  const [todayPokemonNum, setTodayPokemonNum] = useAtom(todayPokemonAtomNum);
+  const [todayPokemonList, setTodayPokemonList] = useState<
+    Array<IGetPokemonData>
+  >([]);
   const pokemonAllList = useAtomValue(pokemonAllListAtom);
 
   const pc = useMediaQuery("screen and (min-width:1024px)");
@@ -21,40 +28,52 @@ export default function MainSlide() {
   const viewSlideNumber = pc ? 3 : tablet && mobile ? 2 : 1;
   const transition = 1000;
 
-  const [curIdx, setCurIdx] = useState(0);
+  const [curIdx, setCurIdx] = useAtom(slideCurIndex);
   const [slideTransition, setSlideTranstion] = useState(0);
 
   useEffect(() => {
     if (pokemonAllList.length <= 1) {
       return;
     }
-    const pokemonList = [];
+    const pokemonNum: Array<number> = [];
     const slideItemList = [];
+    const selectedPokemonList = [];
     const duplicateCheck = new Set();
 
-    while (pokemonList.length <= 9) {
-      const randomNum = Math.floor(Math.random() * pokemonAllList.length);
+    if (todayPokemonNum.length === 0) {
+      while (pokemonNum.length <= 9) {
+        const randomNum = Math.floor(Math.random() * pokemonAllList.length);
 
-      if (duplicateCheck.has(randomNum)) {
-        continue;
+        if (duplicateCheck.has(randomNum)) {
+          continue;
+        }
+        duplicateCheck.add(randomNum);
+        pokemonNum.push(randomNum);
+        slideItemList.push(pokemonAllList[randomNum]);
+        selectedPokemonList.push(pokemonAllList[randomNum]);
       }
-      duplicateCheck.add(randomNum);
-      pokemonList.push(pokemonAllList[randomNum]);
-      slideItemList.push(pokemonAllList[randomNum]);
+      setTodayPokemonNum(pokemonNum);
+    } else {
+      for (let i of todayPokemonNum) {
+        slideItemList.push(pokemonAllList[i]);
+        selectedPokemonList.push(pokemonAllList[i]);
+      }
     }
+
     for (let i = 1; i <= viewSlideNumber; i++) {
-      slideItemList.push(pokemonList[i - 1]);
+      slideItemList.push(selectedPokemonList[i - 1]);
     }
-    setTodayPokemon([...slideItemList]);
-  }, [pokemonAllList, viewSlideNumber]);
+
+    setTodayPokemonList(slideItemList);
+  }, [pokemonAllList, viewSlideNumber, , setTodayPokemonNum, todayPokemonNum]);
 
   const intervalRef = useRef<number | null>(null);
 
-  const startInterval = () => {
+  const startInterval = useCallback(() => {
     intervalRef.current = window.setInterval(() => {
       setCurIdx((prevIdx) => prevIdx + 1);
     }, delay);
-  };
+  }, [setCurIdx]);
 
   const stopInterval = () => {
     if (intervalRef.current) {
@@ -70,16 +89,16 @@ export default function MainSlide() {
         window.clearInterval(intervalRef.current);
       }
     };
-  }, []);
+  }, [startInterval]);
 
   useEffect(() => {
-    if (todayPokemon.length === 0) {
+    if (todayPokemonList.length === 0) {
       setTimeout(() => {
         setSlideTranstion(transition);
       }, delay - 1);
       return;
     }
-    if (curIdx >= todayPokemon.length - viewSlideNumber + 1) {
+    if (curIdx >= todayPokemonList.length - viewSlideNumber + 1) {
       setSlideTranstion(0);
       setCurIdx(0);
       setTimeout(() => {
@@ -89,15 +108,25 @@ export default function MainSlide() {
     }
   }, [
     curIdx,
-    todayPokemon.length,
+    todayPokemonList.length,
     transition,
     slideTransition,
     viewSlideNumber,
+    setCurIdx,
   ]);
+
+  useEffect(() => {
+    window.addEventListener("focus", startInterval);
+    window.addEventListener("blur", stopInterval);
+    return () => {
+      window.removeEventListener("focus", startInterval);
+      window.removeEventListener("blur", stopInterval);
+    };
+  });
 
   return (
     <section className="h-screen w-full relative flex items-center overflow-hidden">
-      <article className="max-w-[1200px]  overflow-hidden border-gray-800 m-auto relative">
+      <article className="max-w-[1200px] overflow-hidden m-auto relative">
         <ul
           className="flex items-center m-auto"
           onMouseEnter={() => {
@@ -107,12 +136,14 @@ export default function MainSlide() {
             startInterval();
           }}
           style={{
-            width: `${(todayPokemon.length * 100) / viewSlideNumber}%`,
-            transform: `translateX(-${(100 / todayPokemon.length) * curIdx}%)`,
+            width: `${(todayPokemonList.length * 100) / viewSlideNumber}%`,
+            transform: `translateX(-${
+              (100 / todayPokemonList.length) * curIdx
+            }%)`,
             transition: `all ${slideTransition}ms`,
           }}
         >
-          {todayPokemon?.map(({ name, url }, idx) => {
+          {todayPokemonList?.map(({ name, url }, idx) => {
             const id = url.split("/")[url.split("/").length - 2];
             return (
               <li
