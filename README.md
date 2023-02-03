@@ -113,8 +113,6 @@ bulbasaur: "이상해씨",
 
 - 흔히 알고있는 redux-tool-kit를 사용할까 했지만, jotai에 비해 사용법도 복잡하고 라이브러리 크기도 커서 jotai를 사용!
 
-<br><br>
-
 <br>
 
 ## ✅ 후기
