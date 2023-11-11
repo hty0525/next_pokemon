@@ -35,6 +35,7 @@ export default function PokemonDetail({ id }: { id: string | string[] }) {
   const isSuccess =
     isImgisSuccess && isNameisSuccess && isTypeisSuccess && isClassisSuccess;
 
+  console.log(type);
   return (
     <article className="pt-10 md:h-[calc(100vh-6rem)] flex items-center ">
       {!isSuccess ? (

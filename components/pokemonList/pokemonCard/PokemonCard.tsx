@@ -23,7 +23,6 @@ export default memo(function PokemonCard({ name, id }: IPokemonCard) {
   const pokemonName = checkKo.test(name) ? name : pokemonKoName[name];
 
   const isSuccess = typeSisSuccess && imgUrlSisSuccess;
-
   return (
     <>
       {!isSuccess ? (
