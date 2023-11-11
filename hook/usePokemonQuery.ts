@@ -23,6 +23,15 @@ export const useGetPokemonAllListQuery = () =>
 
 export const useGetPokemonInfoQuery = ({ id, key }: IGetPokemonInfo) =>
   useQuery([`pokemon${key}`, id], () => pokemonApis.getPokemonInfo(id), {
+    onSuccess(data) {
+      console.log(1234);
+    },
+    onError: () => {
+      console.error("에러났어");
+      alert("에러났어요");
+      return "error";
+    },
+
     select: (data) => {
       switch (key) {
         case "ImgUrl":

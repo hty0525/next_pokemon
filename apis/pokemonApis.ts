@@ -8,7 +8,7 @@ export const pokemonApis = {
         limit = 11;
       }
       const { data } = await instance.get(
-        `pokemon/?offset=${pageParam}&limit=${limit}`,
+        `pokemon/?offset=${pageParam}&limit=${limit}`
       );
       return data;
     } catch (error) {
@@ -22,20 +22,12 @@ export const pokemonApis = {
   },
 
   getPokemonInfo: async (id: string | string[] | undefined) => {
-    try {
-      const { data } = await instance.get(`pokemon/${id}`);
-      return data;
-    } catch (error) {
-      return error;
-    }
+    const { data } = await instance.get(`pokemon/${id}`);
+    return data;
   },
 
   getPokemonDesc: async (id: string | string[]) => {
-    try {
-      const { data } = await instance.get(`pokemon-species/${id}`);
-      return data;
-    } catch (error) {
-      return error;
-    }
+    const { data } = await instance.get(`pokemon-species/${id}`);
+    return data;
   },
 };
